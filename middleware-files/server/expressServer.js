@@ -16,6 +16,7 @@ var express = require('express'),
         this.expressServer.engine('html', swig.renderFile);
         this.expressServer.set('view engine', 'html'); // template of view
         this.expressServer.set('views', __dirname + './../website/views/templates'); // html templates paths
+        swig.setDefaults({varControls: ['[[', ']]']});
         
         // Routing
         this.expressServer.get('/article/save', function (req, res, next) {
