@@ -1,0 +1,18 @@
+{
+  "name": "nodejs-training",
+  "version": "1.0.0",
+  "description": "node js generalities",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.11.0",
+    "body-parser": "^1.10.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fernando Palacios Landi",
+  "license": "ISC"
+}
