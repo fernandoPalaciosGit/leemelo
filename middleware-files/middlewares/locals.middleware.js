@@ -1,5 +1,5 @@
 module.exports = function (req, res, next) {
     res.locals.user = 'nando';
-    // res.locals.authenticated = !req.user.anonymous;
+    res.locals.environment = JSON.stringify(process.env);
     next();
 };

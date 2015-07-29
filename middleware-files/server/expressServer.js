@@ -1,6 +1,7 @@
 'use strict';
 
-var express = require('express'),
+var env = process.env.NODE_ENV || 'production',
+    express = require('express'),
     middlewares = require('../middlewares/admin'),
     swig = require('swig'),
     ExpressServer = function (conf) {
@@ -17,6 +18,15 @@ var express = require('express'),
         this.expressServer.set('view engine', 'html'); // template of view
         this.expressServer.set('views', __dirname + './../website/views/templates'); // html templates paths
         swig.setDefaults({varControls: ['[[', ']]']});
+        
+        // configurate template engine
+        if (env === 'development') {
+            this.expressServer.set('view cache', false);
+            swig.setDefaults({
+                cache: false,
+                varControls: ['[[', ']]']
+            });
+        }
         
         // Routing
         this.expressServer.get('/article/save', function (req, res, next) {
