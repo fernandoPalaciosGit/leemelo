@@ -24,7 +24,7 @@ var express = require('express'),
         });
         
         this.expressServer.get('/article/list', function (req, res, next) {
-            res.send('loading....article/list');
+            res.render('article_list', {});
         });
     };
 
