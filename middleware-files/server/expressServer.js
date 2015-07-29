@@ -19,8 +19,9 @@ var env = process.env.NODE_ENV || 'production',
         this.expressServer.set('views', __dirname + './../website/views/templates'); // html templates paths
         swig.setDefaults({varControls: ['[[', ']]']});
         
-        // configurate template engine
+        // set environment into developer machine : `set NODE_ENV development`
         if (env === 'development') {
+            // configurate template engine
             this.expressServer.set('view cache', false);
             swig.setDefaults({
                 cache: false,
