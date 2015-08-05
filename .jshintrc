@@ -1,10 +1,46 @@
 {
-  "curly": true,
-  "eqnull": true,
-  "eqeqeq": true,
-  "undef": true,
-  "node": true,
-  "globals": {
-    "jQuery": true
-  }
+    "quotmark": "single", // only single quotes
+    "indent": 4, // tab width
+    "multistr": true,
+    "undef": true,
+    "unused": true,
+    "sub": true, // supress access properties of objects by ['array notation']
+    "scripturl": true,
+    "nonbsp": true,
+    "latedef": true,
+    "freeze": true, // ptohibit extend/override native prototypes
+    "evil": false,
+    "nonew": true,
+    "supernew": false,
+    "noempty": true,
+    "newcap": true,
+    "immed": true,
+    "eqeqeq": true,
+    "debug": false,
+    "devel": false,
+    "curly": true,
+    "bitwise": false,
+
+    // FLOW FUNCTIONS
+    "strict": true, // avoid use stric mode ES5
+    "maxcomplexity": 5, // cyclomatic complexity
+    "maxdepth": 3, // nested blocks
+    "maxstatements": 10, // max number of function statements per scope
+    "maxparams": 4,
+    "noarg": true,
+
+    // ENVIRONMENT
+    "esnext": false, // ES6
+    "jquery": true,
+    "mocha": true,
+    "node": true,
+    "browser": true,
+
+    // define readonly variables
+    "globals": {
+        "GM_addStyle": false,
+        "GM_xmlhttpRequest": false,
+        "define": false,
+        "Backbone": false
+    }
 }
