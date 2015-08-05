@@ -8,8 +8,16 @@ Simple proyect Structure with Express Backend.
 - npm install
 
 
+
 #### Debugging
-$
+- *install node packages*
+    - $npm install -g node-inspector supervisor forever
+    - $supervisor -- debug [path/to/file-name] // PROYECT DEPLOIMET
+    - $forever [path/to/node-inspector] --web-port=9999 // DEBUG PROYECT
+
+- *open browser window*
+    - localhost:9999/debug?port=5858
+    - localhost/[path/to/file-name]
 
 
 
