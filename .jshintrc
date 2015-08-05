@@ -25,7 +25,7 @@
     "strict": true, // avoid use stric mode ES5
     "maxcomplexity": 5, // cyclomatic complexity
     "maxdepth": 3, // nested blocks
-    "maxstatements": 10, // max number of function statements per scope
+    "maxstatements": 13, // max number of function statements per scope
     "maxparams": 4,
     "noarg": true,
 
