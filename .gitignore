@@ -1,4 +1,4 @@
 node_modules
 *.sh
-vendors
 bower_components
+private.md
