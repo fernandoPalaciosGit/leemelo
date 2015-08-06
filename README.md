@@ -12,8 +12,8 @@ Simple proyect Structure with Express Backend.
 #### Debugging
 - *install node packages*
     - $npm install -g node-inspector supervisor forever
-    - $supervisor -- debug [path/to/file-name] // PROYECT DEPLOIMET
-    - $forever [path/to/node-inspector] --web-port=9999 // DEBUG PROYECT
+    - $supervisor --debug [path/to/file-name] // PROYECT DEPLOIMET
+    - [path/to/node-inspector] --web-port=9999 // DEBUG PROYECT
 
 - *open browser window*
     - localhost:9999/debug?port=5858

@@ -4,6 +4,8 @@ var env = process.env.NODE_ENV || 'production',
     express = require('express'),
     middlewares = require('../middlewares/admin'),
     swig = require('swig'),
+    router = require('../website/router'),
+    routerControllers = [],
     initExpressMiddlewares = function () {
         for (var middleware in middlewares) {
             this.expressServer.use(middlewares[middleware]);
@@ -26,22 +28,29 @@ var env = process.env.NODE_ENV || 'production',
             });
         }
     },
+    // initialize all router resources
     initExpressRouting = function () {
-        this.expressServer.get('/article/save', function (req, res) {
-            res.render('article_save', {name: 'Pocoyo'});
-        });
+        var routerConstructor, lastRouter, resources, resource; 
         
-        this.expressServer.get('/article/list', function (req, res) {
-            res.render('article_list', {});
-        });        
+        for (routerConstructor in router) {
+            // Instance All router controllers
+            routerControllers.push(new router[routerConstructor]());
+            lastRouter = routerControllers[routerControllers.length - 1];
+            
+            for (resources in lastRouter.constructor.prototype) {
+                // initialize all resources from controllers
+                resource = lastRouter[resources];
+                this.expressServer[resource.method](resource.url, resource.callback);
+            }
+        }
     },
     ExpressServer = function (conf) {
         this.conf = conf || {};
-        this.expressServer = express();   
-        initExpressMiddlewares.bind(this);
-        initExpressTemplates.bind(this);
-        initExpressEnvironment.bind(this);
-        initExpressRouting.bind(this);
+        this.expressServer = express();
+        initExpressMiddlewares.call(this);
+        initExpressTemplates.call(this);
+        initExpressEnvironment.call(this);
+        initExpressRouting.call(this);
     };
 
 module.exports = ExpressServer;
