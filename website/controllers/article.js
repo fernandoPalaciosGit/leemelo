@@ -32,10 +32,11 @@
      */
     Article.prototype.resourceSaveArticle = {
         url: '/article/save/',
-        method: 'get',
+        method: 'post',
         restfull: 'POST',
         callback: function (req, res) {
-            res.render('article_save', {});
+            debugger;
+            // res.render('article_save', {});
         }
     };
 
