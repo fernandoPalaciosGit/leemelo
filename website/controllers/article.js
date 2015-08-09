@@ -34,8 +34,8 @@
         url: '/article/save/',
         method: 'post',
         restfull: 'POST',
-        callback: function (req, res) {
-            debugger;
+        callback: function (req) {
+            console.dir(req.body);
             // res.render('article_save', {});
         }
     };
