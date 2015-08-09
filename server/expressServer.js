@@ -41,7 +41,7 @@
                 for (resources in lastRouter.constructor.prototype) {
                     // initialize all resources from controllers
                     resource = lastRouter[resources];
-                    this.expressServer[resource.method](resource.url, resource.callback);
+                    this.expressServer[resource.method](resource.url, resource.callback.bind(lastRouter));
                 }
             }
         },

@@ -2,6 +2,11 @@
     'use strict';
 
     /**
+     * @instanceof Article
+     */
+    var ArticleView = require('../views/article'),
+    
+    /**
      * @class Express routing for article controller
      * @lends Article.prototype properties from Article routing
      * @property {string} url Path resource from express routing (http://localhost:3000/[url])
@@ -9,19 +14,21 @@
      * @property {restfull} string HTTP methods from restfull services
      * @property {callback} function middleware handlers for expres routing
      */
-    var Article = function () { };
+    ArticleCtrl = function () {
+        this.view = new ArticleView();
+    };
 
     /**
      * insertion request for new articles
      * @memberof Article
      * @type {Object}
      */
-    Article.prototype.resourceAddArticle = {
+    ArticleCtrl.prototype.resourceAddArticle = {
         url: '/article/add/',
         method: 'get',
         restfull: 'GET',
         callback: function (req, res) {
-            res.render('article_add', {name: 'Pocoyo'});
+            this.view.add(res, {title: 'Add a new Article'});
         }
     };
     
@@ -30,13 +37,12 @@
      * @memberof Article
      * @type {Object}
      */
-    Article.prototype.resourceSaveArticle = {
+    ArticleCtrl.prototype.resourceSaveArticle = {
         url: '/article/save/',
         method: 'post',
         restfull: 'POST',
-        callback: function (req) {
-            console.dir(req.body);
-            // res.render('article_save', {});
+        callback: function (req, res) {
+            this.view.save(res, {title: 'Save a new Article', data: req.body});
         }
     };
 
@@ -45,12 +51,12 @@
      * @memberof Article
      * @type {Object}
      */
-    Article.prototype.resourceEditArticle = {
+    ArticleCtrl.prototype.resourceEditArticle = {
         url: '/article/edit/:data',
         method: 'get',
         restfull: ['PUT', 'DELETE'],
         callback: function (req, res) {
-            res.send('article_edit');
+            this.view.edit(res, {title: 'edit next article : ', data: req.params.data});
         }
     };
     
@@ -59,14 +65,14 @@
      * @memberof Article
      * @type {Object}
      */
-    Article.prototype.resourceListArticle = {
+    ArticleCtrl.prototype.resourceListArticle = {
         url: '/article/list/',
         method: 'get',
         restfull: 'GET',
         callback: function (req, res) {
-            res.render('article_list', {});
+            this.view.list(res, {title: 'List all articles'});
         }
     };
 
-    module.exports = Article;
+    module.exports = ArticleCtrl;
 }());
