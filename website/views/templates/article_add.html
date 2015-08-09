@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>form to save article data</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block wrapper-tmpl %}
 <form action="/article/save" method="post">
     <p>
         <label for="title">Title: </label>
@@ -21,5 +16,4 @@
     </p>    
     <p><input type="submit" value="submit"></p>
 </form>
-</body>
-</html>
+{% endblock %}
