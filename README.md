@@ -4,8 +4,16 @@ Simple proyect Structure with Express Backend.
  
  
 #### Instalation
-- Fork me in guithub :blush:
-- npm install
+- Fork me in github :blush:
+- install [mongodb](https://platzi.com/clases/node-js/concepto/nodejs-avanzado/instalacion-mongodb/material/)
+- npm install proyect dependencies
+
+
+#### deploy in Windows
+- open mongodb database:
+    - $[path/to/mongodg]/mongod.exe
+- execute aplication in webbrowser
+    - localhost:3000/[path/to/express-route]
 
 
 #### Debugging
