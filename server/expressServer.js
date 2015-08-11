@@ -1,11 +1,11 @@
-;(function () {
+ ;(function () {
     'use strict';
     
     var env = process.env.NODE_ENV || 'production',
         express = require('express'),
-        middlewares = require('../middlewares/admin'),
         swig = require('swig'),
-        router = require('../website/router'),
+        middlewares = require('../middlewares/admin'),
+        routeList = require('../website/router'),
         routerControllers = [],
         initExpressMiddlewares = function () {
             for (var middleware in middlewares) {
@@ -31,17 +31,17 @@
         },
         // initialize all router resources
         initExpressRouting = function () {
-            var routerConstructor, lastRouter, resources, resource; 
+            var routerConstructor, router, resources, resource; 
             
-            for (routerConstructor in router) {
+            for (routerConstructor in routeList) {
                 // Instance All router controllers
-                routerControllers.push(new router[routerConstructor]());
-                lastRouter = routerControllers[routerControllers.length - 1];
+                router = new routeList[routerConstructor](this.conf);
+                routerControllers.push(router);
                 
-                for (resources in lastRouter.constructor.prototype) {
+                for (resources in router.constructor.prototype) {
                     // initialize all resources from controllers
-                    resource = lastRouter[resources];
-                    this.expressServer[resource.method](resource.url, resource.callback.bind(lastRouter));
+                    resource = router[resources];
+                    this.expressServer[resource.method](resource.url, resource.callback.bind(router));
                 }
             }
         },

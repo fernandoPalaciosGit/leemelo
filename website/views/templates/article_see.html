@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block wrapper-tmpl %}
+<ul>
+    <li><small>ISBN [[ article.isbn ]]</small></li>
+    <li><strong>title</strong> : [[ article.title ]]</li>
+    <li><strong>slug</strong> : [[ article.slug ]]</li>
+    <li><strong>description</strong> : [[ article.description ]]</li>
+</ul>
+{% endblock %}
+    

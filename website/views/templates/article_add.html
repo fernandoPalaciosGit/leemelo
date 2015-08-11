@@ -3,16 +3,20 @@
 {% block wrapper-tmpl %}
 <form action="/article/save" method="post">
     <p>
+        <label for="isbn">ISBN: </label>
+        <input id="isbn" type="text" name="isbn" required>
+    </p>
+    <p>
         <label for="title">Title: </label>
-        <input id="title" type="text" name="title">
+        <input id="title" type="text" name="title" required>
     </p>
     <p>
         <label for="slug">Slug: </label>
-        <input id="slug" type="text" name="slug">
+        <input id="slug" type="text" name="slug" required>
     </p>
     <p>
-        <label for="content">Content: </label>
-        <input id="content" type="text" name="content">
+        <label for="description">Description: </label>
+        <input id="description" type="text" name="description">
     </p>    
     <p><input type="submit" value="submit"></p>
 </form>

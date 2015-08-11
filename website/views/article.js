@@ -1,22 +1,24 @@
 ;(function () {
     'use strict';
     
-    var ArticleView = function () {};
+    var ArticleView = function (conf) {
+        this.conf = conf || {};
+    };    
     
-    ArticleView.prototype.add = function (res, object) {
-        res.render('article_add', object);
+    ArticleView.prototype.renderAddArticle = function (res, dataTemplate) {
+        res.render('article_add', dataTemplate);
     };
     
-    ArticleView.prototype.save = function (res, object) {
-        res.render('article_save', object);
+    ArticleView.prototype.renderGetArticle = function (res, dataTemplate) {
+        res.render('article_see', dataTemplate);
     };
     
-    ArticleView.prototype.edit = function (res, object) {
-        res.render('article_edit', object);
+    ArticleView.prototype.renderEditArticle = function (res, dataTemplate) {
+        res.render('article_edit', dataTemplate);
     };
     
-    ArticleView.prototype.list = function (res, object) {
-        res.render('article_list', object);
+    ArticleView.prototype.renderListArticle = function (res, dataTemplate) {
+        res.render('article_list', dataTemplate);
     };
     
     module.exports = ArticleView;

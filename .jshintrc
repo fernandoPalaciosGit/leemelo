@@ -20,6 +20,7 @@
     "devel": false,
     "curly": true,
     "bitwise": false,
+    "expr": true,
 
     // FLOW FUNCTIONS
     "strict": true, // avoid use stric mode ES5
