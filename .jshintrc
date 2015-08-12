@@ -32,16 +32,12 @@
 
     // ENVIRONMENT
     "esnext": false, // ES6
-    "jquery": true,
     "mocha": true,
     "node": true,
     "browser": true,
 
     // define readonly variables
     "globals": {
-        "GM_addStyle": false,
-        "GM_xmlhttpRequest": false,
-        "define": false,
-        "Backbone": false
+        "io": false
     }
 }

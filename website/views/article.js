@@ -6,19 +6,19 @@
     };    
     
     ArticleView.prototype.renderAddArticle = function (res, dataTemplate) {
-        res.render('pages/article_add', dataTemplate);
+        res.render('widgets/article_add', dataTemplate);
     };
     
     ArticleView.prototype.renderGetArticle = function (res, dataTemplate) {
-        res.render('pages/article_see', dataTemplate);
+        res.render('widgets/article_see', dataTemplate);
     };
     
     ArticleView.prototype.renderEditArticle = function (res, dataTemplate) {
-        res.render('pages/article_edit', dataTemplate);
+        res.render('widgets/article_edit', dataTemplate);
     };
     
     ArticleView.prototype.renderListArticle = function (res, dataTemplate) {
-        res.render('pages/article_list', dataTemplate);
+        res.render('widgets/article_list', dataTemplate);
     };
     
     module.exports = ArticleView;

@@ -1,0 +1,19 @@
+<script>
+;(function (w, SocketClient) {
+    'use strict';
+    
+    var ArticleSee = {
+        socketClient : new SocketClient(),
+        initalizeChannels: function () {
+            var socket = this.socketClient;
+            
+            socket.io.on('channel-server-connection', socket.serverConnChannel.bind(socket));
+        },
+        init: function () {
+            this.initalizeChannels();
+        }
+    };
+    
+    w.onload = ArticleSee.init.bind(ArticleSee);
+}(window, window.SocketIOClient));
+</script>
