@@ -21,7 +21,7 @@
         initExpressEnvironment = function () {
             // set environment into developer machine : `set NODE_ENV development`
             if (env === 'development') {
-                // configurate template engine
+                // configurate template engine to avoid cache status
                 this.expressServer.set('view cache', false);
                 swig.setDefaults({
                     cache: false,

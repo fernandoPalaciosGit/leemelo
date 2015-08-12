@@ -2,3 +2,4 @@ node_modules
 *.sh
 bower_components
 private.md
+static
