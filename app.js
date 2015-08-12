@@ -13,9 +13,11 @@ var http = require('http'),
  * Open connection to Mongoose, before open Express server
  */
 mongoose.connect(mongooseUrl);
-mongoose.connection.once('open', function () {
-    var app = new ExpressServer(conf),
-        server = http.createServer(app.expressServer);
-    
-    server.listen(conf.port, conf.msgOpenApp.bind(conf));
-});
+mongoose.connection
+    .on('error', console.error.bind(null, 'connection error:'))
+    .once('open', function () {
+        var app = new ExpressServer(conf),
+            server = http.createServer(app.expressServer);
+        
+        server.listen(conf.port, conf.msgOpenApp.bind(conf));
+    });
