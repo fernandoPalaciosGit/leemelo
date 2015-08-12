@@ -112,7 +112,7 @@
         callback: function (req, res) {
             var dataTemplate = {
                 titlePage: 'Edit stored article',
-                articleName: req.params.artName
+                article: {name: req.params.artName}
             };
             this.view.renderEditArticle(res, dataTemplate);
         }

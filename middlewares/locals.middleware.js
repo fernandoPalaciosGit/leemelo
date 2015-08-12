@@ -5,8 +5,8 @@
     'use strict';
     
     module.exports = function (req, res, next) {
-        res.locals.user = 'nando';
         res.locals.environment = JSON.stringify(process.env);
+        res.locals.server = 'http://' + req.headers.host;
         next();
     };
 }());

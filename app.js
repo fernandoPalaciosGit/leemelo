@@ -7,7 +7,8 @@ var http = require('http'),
         'mongodb:/',
         conf.mongoDB.host,
         conf.mongoDB.name].join('/'),
-    ExpressServer = require('./server/expressServer');
+    ExpressServer = require('./server/expressServer'),
+    SocketIOServer = require('./server/socketIOServer');
 
 /**
  * Open connection to Mongoose, before open Express server
@@ -17,7 +18,8 @@ mongoose.connection
     .on('error', console.error.bind(null, 'connection error:'))
     .once('open', function () {
         var app = new ExpressServer(conf),
-            server = http.createServer(app.expressServer);
+            server = http.createServer(app.expressServer),
+            socket = new SocketIOServer(server);
         
         server.listen(conf.port, conf.msgOpenApp.bind(conf));
     });

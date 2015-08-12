@@ -15,7 +15,8 @@
         initExpressTemplates = function () {
             this.expressServer.engine('html', swig.renderFile);
             this.expressServer.set('view engine', 'html'); // template of view
-            this.expressServer.set('views', __dirname + './../website/views/templates'); // html templates paths
+            // html templates paths
+            this.expressServer.set('views', __dirname + './../website/views/templates');
             swig.setDefaults({varControls: ['[[', ']]']});
         },
         initExpressEnvironment = function () {

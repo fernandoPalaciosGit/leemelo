@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>[[ titlePage ]]</title>
-</head>
-<body>
-    {% block wrapper-tmpl %} {% endblock %}
-</body>
-</html>
+{% include 'components/header.html' %}
+{% include 'components/navigation.html' %}
+{% block wrapper-tmpl %} {% endblock %}
+{% include 'components/client-scripts.html' %}
+{% include 'components/footer.html' %}
