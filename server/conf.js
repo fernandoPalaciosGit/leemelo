@@ -2,18 +2,26 @@
     'use strict';
     
     module.exports = {
-        protocol: 'http://',
-        host: 'localhost',
-        port: 3000,
+        server: {
+            protocol: 'http://',
+            host: 'localhost',
+            port: 3000
+        },
+        getserverPath: function () {
+            var system = this.server; 
+            return system.protocol + system.host + ':' + system.port;  
+        },
         msgOpenApp: function () {
             console.log('Aplication listening on %s', this.getserverPath());
         },
-        getserverPath: function () {
-            return this.protocol + this.host + ':' + this.port;  
+        mongoDB: {
+            protocol: 'mongodb://',
+            host : 'localhost',
+            db : 'mvc'
         },
-        'mongoDB': {
-            'host' : 'localhost',
-            'name' : 'mvc'
+        getMongoPath: function () {
+            var system = this.mongoDB; 
+            return system.protocol + system.host + ':' + system.db;
         }
     };
 }());
