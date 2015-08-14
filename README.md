@@ -29,13 +29,17 @@ Simple proyect Structure with Express Backend.
     - $npm install -g node-inspector [supervisor | nodemon]
 
 - *open debugger services*
-    - $[Nodemon | supervisor --debug] [path/to/app.js] // PROYECT DEPLOYMENT
+    - $[node | nodemon | supervisor] --debug [path/to/app.js] // PROYECT DEPLOYMENT
     - [path/to/node-inspector] --web-port=9999 // DEBUG PROYECT (where | which node-inspector)
 
 - *open browser window*
     - http://127.0.0.1:9999/?ws=127.0.0.1:9999&port=5858
     - localhost:3000/[path/to/express-route]
 
+
+
+#### Full Performance of NodeJS server workers for aplication
+![nodeJs workers full performance](http://www.cruzalosdedos.es/media/nodejs-workers-app.png "NodeJS worker")
 
 #### Documentation
 - [NodeJS API](https://nodejs.org/api/)
