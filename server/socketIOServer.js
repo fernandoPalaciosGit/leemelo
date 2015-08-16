@@ -10,11 +10,11 @@
     // Subscribe handler callbacks of all our client channels after first connect
     SocketIOServer.prototype.serverConnection = function (socket) {
         socket.emit('channel-server-connection', {msg: 'emit connection from server'});
-        socket.on('channel-articleSee-startConnection', this.articleSeeStartConnection);
+        socket.on('channel-bookSee-startConnection', this.bookSeeStartConnection);
     };
     
     // CHANNEL CALLBACKS
-    SocketIOServer.prototype.articleSeeStartConnection = function (data) {
+    SocketIOServer.prototype.bookSeeStartConnection = function (data) {
         console.info(data.msg);
     };
 

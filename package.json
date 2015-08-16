@@ -2,7 +2,6 @@
   "name": "nodejs-training",
   "version": "1.0.0",
   "description": "nodejs mvc boilerplate proyect",
-  "main": "app.js",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.11.0",
@@ -15,8 +14,9 @@
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "^0.11.2"
   },
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": {
     "type": "git",

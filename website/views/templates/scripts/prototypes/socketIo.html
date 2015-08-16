@@ -9,7 +9,7 @@
     
     w.SocketIOClient.prototype.serverConnChannel = function (data) {
         console.info(data.msg);
-        this.io.emit('channel-articleSee-startConnection', {msg: 'emit connection from client'});
+        this.io.emit('channel-bookShow-startConnection', {msg: 'emit connection from client'});
     };
 }(window, io, window.Global));
 </script>

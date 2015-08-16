@@ -2,7 +2,7 @@
 ;(function (w, SocketClient) {
     'use strict';
     
-    var ArticleSee = {
+    var BookShow = {
         socketClient : new SocketClient(),
         initalizeChannels: function () {
             var socket = this.socketClient;
@@ -14,6 +14,6 @@
         }
     };
     
-    w.onload = ArticleSee.init.bind(ArticleSee);
+    w.onload = BookShow.init.bind(BookShow);
 }(window, window.SocketIOClient));
 </script>

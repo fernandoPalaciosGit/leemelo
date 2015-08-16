@@ -1,31 +1,31 @@
 ;(function () {
     'use strict';
     
-    var ArticleMongoModel = require('./schema/article'),
-        ArticleModel = function (conf) {
+    var BookMongoModel = require('./schema/book'),
+        BookModel = function (conf) {
             this.conf = conf;
-            this.mongoModel = ArticleMongoModel;
+            this.mongoModel = BookMongoModel;
         };
         
     /**
      * if exist update or save newone
      * @return {[type]} [description]
      */
-    ArticleModel.prototype.saveArticle = function (docArticle, callback) {
+    BookModel.prototype.saveBook = function (docBook, callback) {
         var queryParams = {
-                isbn: docArticle.isbn // unique attribute
+                isbn: docBook.isbn // unique attribute
             },
             queryOptions = {
                 upsert: true, // create object if it doesn´t exist
                 'new': true // return updated document rather query document
             };
             
-        this.mongoModel.findOneAndUpdate(queryParams, docArticle, queryOptions, callback);
+        this.mongoModel.findOneAndUpdate(queryParams, docBook, queryOptions, callback);
     };
     
-    ArticleModel.prototype.getArticle = function (query, callback) {
+    BookModel.prototype.getBook = function (query, callback) {
         this.mongoModel.find(query, callback);
     };
   
-    module.exports = ArticleModel;
+    module.exports = BookModel;
 }());

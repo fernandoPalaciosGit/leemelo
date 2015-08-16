@@ -1,7 +1,7 @@
 {% extends '../base.html' %}
 
 {% block wrapper-tmpl %}
-<form action="/article/save" method="post">
+<form action="/book/save" method="post">
     <p>
         <label for="isbn">ISBN: </label>
         <input id="isbn" type="text" name="isbn" required>
@@ -9,10 +9,6 @@
     <p>
         <label for="title">Title: </label>
         <input id="title" type="text" name="title" required>
-    </p>
-    <p>
-        <label for="slug">Slug: </label>
-        <input id="slug" type="text" name="slug" required>
     </p>
     <p>
         <label for="description">Description: </label>

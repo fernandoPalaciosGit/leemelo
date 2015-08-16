@@ -17,7 +17,7 @@
         mongoDB: {
             protocol: 'mongodb://',
             host : 'localhost',
-            db : 'mvc'
+            db : 'leemelo'
         },
         getMongoPath: function () {
             var system = this.mongoDB; 

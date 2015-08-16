@@ -1,3 +1,3 @@
 module.exports = {
-    article: require('./controllers/article')
+    book: require('./controllers/router.book')
 };

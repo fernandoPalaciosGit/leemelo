@@ -2,13 +2,12 @@
     'use strict';
     
     var mongoose = require('mongoose'),
-        articleIndex = {
+        bookIndex = {
             isbn: {type: String, require: true, unique: true},
             title: {type: String, require: true},
-            slug: {type: String, require: true},
             description: {type: String}
         },
-        articleSchema = new mongoose.Schema(articleIndex);
+        bookSchema = new mongoose.Schema(bookIndex);
         
-    module.exports = mongoose.model('Article',  articleSchema);
+    module.exports = mongoose.model('Book',  bookSchema);
 }());

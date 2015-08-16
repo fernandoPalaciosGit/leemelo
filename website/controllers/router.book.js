@@ -2,28 +2,28 @@
     'use strict';
 
     /**
-     * @instanceof Article
+     * @instanceof Book
      */
-    var ArticleView = require('../views/article'),
-        ArticleModel = require('../models/article'),
+    var BookView = require('../views/book'),
+        BookModel = require('../models/book'),
         
     
     /**
-     * @class Express routing for article controller
-     * @lends Article.prototype properties from Article routing
+     * @class Express routing for book controller
+     * @lends Book.prototype properties from Book routing
      * @property {string} url Path route from express routing (http://localhost:3000/[url])
      * @property {method} string expres routing interfaces
      * @property {restfull} string HTTP methods from restfull services
      * @property {callback} function middleware handlers for expres routing
      */
-    ArticleCtrl = function (conf) {        
+    BookCtrl = function (conf) {        
         this.conf = conf;
-        this.view = new ArticleView();
-        this.model = new ArticleModel();
+        this.view = new BookView();
+        this.model = new BookModel();
         this.redirectPaths = function (response, pathname, restParam) {
             var url = [
                 this.conf.getserverPath(),
-                'article',
+                'book',
                 pathname,
                 restParam || ''
             ].join('/');
@@ -32,37 +32,37 @@
     };
 
     /**
-     * insertion request for new articles
-     * @memberof Article
+     * insertion request for new books
+     * @memberof Book
      * @type {Object}
      */
-    ArticleCtrl.prototype.routeAddArticle = {
-        url: '/article/add/',
+    BookCtrl.prototype.routeAddBook = {
+        url: '/book/add/',
         method: 'get',
         restfull: 'GET',
         callback: function (req, res) {
             var dataTemplate = {
-                titlePage : 'Add new Article'
+                titlePage : 'Add new Book'
             };
-            this.view.renderAddArticle(res, dataTemplate);
+            this.view.renderAddBook(res, dataTemplate);
         }
     };
     
     /**
-     * insert or updated new articles
-     * @memberof Article
+     * insert or updated new books
+     * @memberof Book
      * @type {Object}
      */
-    ArticleCtrl.prototype.routeSaveArticle = {
-        url: '/article/save/',
+    BookCtrl.prototype.routeSaveBook = {
+        url: '/book/save/',
         method: 'post',
         restfull: 'POST',
         callback: function (req, res) {
-            var docArticle = req.body;
+            var docBook = req.body;
             
-            this.model.saveArticle(docArticle, function (err, docUpdated) {
+            this.model.saveBook(docBook, function (err, docUpdated) {
                 
-                // redirect to isbn stored article, or to form for add new one.
+                // redirect to isbn stored book, or to form for add new one.
                 if (!err && !!docUpdated) {
                     this.redirectPaths(res, 'isbn', docUpdated.toJSON().isbn);
                 
@@ -75,21 +75,21 @@
         }
     };
     
-    ArticleCtrl.prototype.routeGetArticle = {
-        url: '/article/isbn/:isbn',
+    BookCtrl.prototype.routeGetBook = {
+        url: '/book/isbn/:isbn',
         method: 'get',
         restfull: ['GET'],
         callback: function (req, res) {
-            this.model.getArticle({isbn: req.params.isbn}, function (err, doc) {
+            this.model.getBook({isbn: req.params.isbn}, function (err, doc) {
                 var dataTemplate = {};
                 
-                // return template with isbn article or redirect to form for add new one. 
+                // return template with isbn book or redirect to form for add new one. 
                 if (!err && doc.length > 0) {
                     dataTemplate = {
-                        titlePage: 'Data Stored article',
-                        article: doc[0]
+                        titlePage: 'Data Stored book',
+                        book: doc[0]
                     };
-                    this.view.renderGetArticle(res, dataTemplate);
+                    this.view.renderGetBook(res, dataTemplate);
                 
                 } else {
                     !!err && console.error([err.name, err.errmsg || err.message].join('<->'));
@@ -101,39 +101,39 @@
     };
 
     /**
-     * Edit articles articles
-     * @memberof Article
+     * Edit books books
+     * @memberof Book
      * @type {Object}
      */
-    ArticleCtrl.prototype.routeEditArticle = {
-        url: '/article/edit/:artName',
+    BookCtrl.prototype.routeEditBook = {
+        url: '/book/edit/:bookName',
         method: 'get',
         restfull: ['PUT', 'DELETE'],
         callback: function (req, res) {
             var dataTemplate = {
-                titlePage: 'Edit stored article',
-                article: {name: req.params.artName}
+                titlePage: 'Edit stored book',
+                book: {name: req.params.bookName}
             };
-            this.view.renderEditArticle(res, dataTemplate);
+            this.view.renderEditBook(res, dataTemplate);
         }
     };
     
     /**
-     * Retrieve all artticles
-     * @memberof Article
+     * Retrieve all books
+     * @memberof Book
      * @type {Object}
      */
-    ArticleCtrl.prototype.routeListArticle = {
-        url: '/article/list/',
+    BookCtrl.prototype.routeListBook = {
+        url: '/book/list/',
         method: 'get',
         restfull: 'GET',
         callback: function (req, res) {
             var dataTemplate = {
-                titlePage : 'List all articles'
+                titlePage : 'List all books'
             };
-            this.view.renderListArticle(res, dataTemplate);
+            this.view.renderListBook(res, dataTemplate);
         }
     };
 
-    module.exports = ArticleCtrl;
+    module.exports = BookCtrl;
 }());

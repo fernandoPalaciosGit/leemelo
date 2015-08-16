@@ -10,9 +10,11 @@
                 },
                 all: [
                     'Gruntfile.js',
+                    'app.js',
                     'middlewares/**/*.js',
                     'server/**/*.js',
-                    'static/**/*.js',
+                    'workers/**/*.js',
+                    'tests/**/*.js',
                     'website/**/*.js'
                 ]
             }

@@ -1,6 +1,12 @@
-## NodeJS MVC proyect Boilerplate
-Simple proyect Structure with Express Backend.
- 
+## :blue_book: LEEMELO :green_book:
+Web app aplication to store and read Books
+
+
+#### Software design
+NodeJS Backend with Express serving resources and restfull API,
+MongoDB storing documents, SocketIO comunication with list of Books 
+Full CPU cluster performance of server machine (launch aplication in all CPUCores)
+
  
  
 #### Instalation
@@ -12,7 +18,7 @@ Simple proyect Structure with Express Backend.
 
 
 
-#### deploy in Windows
+#### deploy Application
 - open mongodb database:
     - $[path/to/mongodg]/mongod.exe
     
@@ -25,14 +31,14 @@ Simple proyect Structure with Express Backend.
 
 
 #### Debugging
-- *install node packages*
+- install node packages
     - $npm install -g node-inspector [supervisor | nodemon]
 
-- *open debugger services*
+- open debugger services
     - $[node | nodemon | supervisor] --debug [path/to/app.js] // PROYECT DEPLOYMENT
     - [path/to/node-inspector] --web-port=9999 // DEBUG PROYECT (where | which node-inspector)
 
-- *open browser window*
+- open browser window
     - http://127.0.0.1:9999/?ws=127.0.0.1:9999&port=5858
     - localhost:3000/[path/to/express-route]
 
@@ -41,7 +47,11 @@ Simple proyect Structure with Express Backend.
 #### Full Performance of NodeJS server workers for aplication
 ![nodeJs workers full performance](http://www.cruzalosdedos.es/media/nodejs-workers-app.png "NodeJS worker")
 
-#### Documentation
+
+
+###
+
+#### Software Documentation
 - [NodeJS API](https://nodejs.org/api/)
 - [Express API](http://expressjs.com/4x/api.html)
 - [Mongoose API](http://mongoosejs.com/docs/index.html)
