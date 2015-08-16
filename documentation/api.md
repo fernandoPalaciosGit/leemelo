@@ -9,7 +9,13 @@
 | *PUT*         | Updarte one resource            |
 | *DELETE*      | Remove one resource             |
 
-
+*BOOKS*
+url: '/book/add/',
+url: '/book/save/',
+url: '/book/isbn/:isbn',
+url: '/book/edit/:bookName',
+url: '/book/list/',
+--------
 
 #### HTTP code supported
 | Response Code | Description                                                      |
@@ -24,7 +30,7 @@
 | *429*         | Limit of API service exceeded, try later                         |
 | *500*         | Main Error from server                                           |
 | *503*         | Service not aviable, try later                                   |
-
+--------
 
 #### Create a New Book
 

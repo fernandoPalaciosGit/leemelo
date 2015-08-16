@@ -1,0 +1,5 @@
+test\test-http-request\books.js
+--recursive
+--ui bdd
+--reporter spec
+-r test/modules/setup

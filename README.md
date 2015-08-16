@@ -53,5 +53,7 @@ Full CPU cluster performance of server machine (launch aplication in all CPUCore
 
 #### Software Documentation
 - [NodeJS API](https://nodejs.org/api/)
-- [Express API](http://expressjs.com/4x/api.html)
-- [Mongoose API](http://mongoosejs.com/docs/index.html)
+- [NodeJS Framework API](http://expressjs.com/4x/api.html)
+- [NOSQL API](http://mongoosejs.com/docs/index.html)
+- [Testing BDD API](https://mochajs.org/)
+- [Expectatives Framwork testing](http://chaijs.com/)
