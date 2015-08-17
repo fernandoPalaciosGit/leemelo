@@ -4,6 +4,12 @@
     var cluster = require('cluster'),
         APP = {
             env : process.env.NODE_ENV,
+            finishProcess: function (options, err) {
+                options.event !== 'exit' && console.error('Exit app process by %s event', options.event);
+                !!err && console.error(err);
+                process.env['NODE_ENV'] = 'development';
+                process.exit();
+            },
             /**
              * Manage Master Cluster, Open and realive slaves clusters
              */
@@ -48,6 +54,11 @@
                 module.exports = appWorker.server;  
             }
         };
+    
+    // retun NODE_ENV default settings
+    process.on('exit', APP.finishProcess.bind(APP, {event: 'exit'}));
+    process.on('SIGINT', APP.finishProcess.bind(APP, {event: 'SIGINT'}));
+    process.on('uncaughtException', APP.finishProcess.bind(APP, {event: 'SIGINT'}));
     
     // $set "NODE_ENV=testing" && mocha app
     if (APP.env === 'testing') {
