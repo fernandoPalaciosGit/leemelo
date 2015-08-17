@@ -12,23 +12,16 @@
                 this.expressServer.use(middlewares[middleware]);
             }
         },
+        // configurate template engine and paths
         initExpressTemplates = function () {
             this.expressServer.engine('html', swig.renderFile);
             this.expressServer.set('view engine', 'html'); // template of view
-            // html templates paths
             this.expressServer.set('views', __dirname + './../website/views/templates');
-            swig.setDefaults({varControls: ['[[', ']]']});
-        },
-        initExpressEnvironment = function () {
-            // set environment into developer machine : `set NODE_ENV development`
-            if (env === 'development') {
-                // configurate template engine to avoid cache status
-                this.expressServer.set('view cache', false);
-                swig.setDefaults({
-                    cache: false,
-                    varControls: ['[[', ']]']
-                });
-            }
+            this.expressServer.set('view cache', this.isProductionEnv);
+            swig.setDefaults({
+                cache: this.isProductionEnv ? 'memory' : false,
+                varControls: ['[[', ']]']
+            });
         },
         // initialize all router resources
         initExpressRouting = function () {
@@ -48,10 +41,10 @@
         },
         ExpressServer = function (conf) {
             this.conf = conf || {};
+            this.isProductionEnv = env === 'production';
             this.expressServer = express();
             initExpressMiddlewares.call(this);
             initExpressTemplates.call(this);
-            initExpressEnvironment.call(this);
             initExpressRouting.call(this);
         };
 

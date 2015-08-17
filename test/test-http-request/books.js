@@ -2,8 +2,7 @@
     'use strict';
         
     var testServer = require('supertest'),
-        api = require('../../workers/slave.worker.js'),
-        request = testServer(api);
+        server = require('../../app');
     
     describe('Request [POST] /book/save', function () {
         it('should create new book or update, with new ID.', function () {
@@ -15,12 +14,13 @@
             
             describe('Response', function () {
                 it('should return saved book with new ID', function () {
-                    request
-                    .post('/book/save')
-                        .expect('Content-Type', /json/)
+                    
+                    testServer(server)
+                        .post('/book/save/')
                         .set('Accept', 'application/json')
+                        .expect('Content-Type', /json/)
                         .send(book)
-                        .expect(201)
+                        .expect(200)
                         .end(function (err, res) {
                             var body = res.body;
                             expect(body).to.have.propertie('book');

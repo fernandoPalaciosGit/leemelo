@@ -42,19 +42,5 @@
         console.error('%s : %s', err.name, err.message);
     };
     
-    /**
-     * Reuse the Aplication from Slave Worker by export it,
-     * When the Master worker creates multiple process for execute our aplication
-     * $nodemon app
-     */
-    if (module.parent) {
-        module.exports = SlaveWorker;
-    
-    /**
-     * $nodemon --debug workers\slave.worker
-     */
-    } else {
-        var appWorker = new SlaveWorker();
-        appWorker.initalizeConnection();
-    }
+    module.exports = SlaveWorker;
 }());

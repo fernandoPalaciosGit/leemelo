@@ -14,7 +14,7 @@
                     'middlewares/**/*.js',
                     'server/**/*.js',
                     'workers/**/*.js',
-                    'tests/**/*.js',
+                    'test/**/*.js',
                     'website/**/*.js'
                 ]
             }

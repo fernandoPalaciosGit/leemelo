@@ -5,14 +5,15 @@
         server: {
             protocol: 'http://',
             host: 'localhost',
-            port: 3000
+            port: 3000,
+            env: process.env.NODE_ENV
         },
         getserverPath: function () {
             var system = this.server; 
             return system.protocol + system.host + ':' + system.port;  
         },
         msgOpenApp: function () {
-            console.log('Aplication listening on %s', this.getserverPath());
+            console.log('Aplication listening on %s/book/add, %s environment', this.getserverPath(), this.server.env);
         },
         mongoDB: {
             protocol: 'mongodb://',

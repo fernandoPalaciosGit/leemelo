@@ -38,6 +38,7 @@
 
     // define readonly variables
     "globals": {
-        "io": false
+        "io": false,
+        "expect": false
     }
 }
