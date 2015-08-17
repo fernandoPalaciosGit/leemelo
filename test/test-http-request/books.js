@@ -16,13 +16,14 @@
                 it('should return saved book with new ID', function () {
                     
                     testServer(server)
-                        .post('/book/save/')
+                        .post('/book/save')
                         .set('Accept', 'application/json')
-                        .expect('Content-Type', /json/)
                         .send(book)
                         .expect(200)
+                        .expect('Content-Type', /application\/json/)
                         .end(function (err, res) {
                             var body = res.body;
+                            !!err && console.error(err.text);
                             expect(body).to.have.propertie('book');
                         });
                 });

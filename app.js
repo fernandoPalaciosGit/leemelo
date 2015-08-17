@@ -50,8 +50,9 @@
             exportTestingServer : function () {
                 var SlaveWorker = require('./workers/slave.worker'),
                     appWorker = new SlaveWorker();
-                    
-                module.exports = appWorker.server;  
+                
+                appWorker.initalizeConnection();  
+                module.exports = appWorker.app.expressServer;  
             }
         };
     
