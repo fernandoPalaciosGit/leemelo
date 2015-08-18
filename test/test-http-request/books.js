@@ -1,32 +1,39 @@
 ;(function () {
     'use strict';
         
-    var testServer = require('supertest'),
-        server = require('../../app');
+    var server = require('../../app'),
+        testServer = require('supertest')(server);
     
-    describe('Request [POST] /book/save', function () {
-        it('should create new book or update, with new ID.', function () {
-            var book = {
-                    isbn: '987-897-P',
-                    title: 'Cardamomo',
-                    description: 'More helpfull spice'
-                };
+    describe('Request /book/save', function () {
             
-            describe('Response', function () {
-                it('should return saved book with new ID', function () {
-                    
-                    testServer(server)
-                        .post('/book/save')
-                        .set('Accept', 'application/json')
-                        .send(book)
-                        .expect(200)
-                        .expect('Content-Type', /application\/json/)
-                        .end(function (err, res) {
-                            var body = res.body;
-                            !!err && console.error(err.text);
-                            expect(body).to.have.propertie('book');
-                        });
-                });
+        describe('[POST]', function () {
+            
+            it('Should create new book or update', function (done) {
+                var data = {
+                    book: {
+                        isbn: '123456789',
+                        title: 'Title book',
+                        description: 'description book'
+                    }  
+                };
+                
+                data = JSON.stringify(data);
+                testServer
+                    .post('/book/save')
+                    .set('Accept', 'application/json')
+                    .send(data)
+                    .expect(200)
+                    .expect('Content-Type', /application\/json/)
+                    .end(function (err, res) {
+                        var body = res.body,
+                            book = body.book;
+                        
+                        expect(body).to.have.property('book');
+                        expect(book).to.have.property('isbn', '123456789');
+                        expect(book).to.have.property('title', 'Title book');
+                        expect(book).to.have.property('description', 'description book');
+                        done();
+                    });
             });
         });
     });

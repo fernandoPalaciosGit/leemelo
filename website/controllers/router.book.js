@@ -54,7 +54,7 @@
      * @type {Object}
      */
     BookCtrl.prototype.routeSaveBook = {
-        url: '/book/save/',
+        url: '/book/save1/',
         method: 'post',
         restfull: 'POST',
         callback: function (req, res) {
@@ -74,7 +74,23 @@
             }.bind(this));
         }
     };
-    
+
+    BookCtrl.prototype.routeSaveBook = {
+        url: '/book/save',
+        method: 'post',
+        restfull: 'POST',
+        callback: function (req, res) {
+            var book = req.body.book;
+
+            res
+                .status(201)
+                .set('Content-Type', 'application/json')
+                .json({
+                    book: book 
+                });                
+        }
+    };
+        
     BookCtrl.prototype.routeGetBook = {
         url: '/book/isbn/:isbn',
         method: 'get',

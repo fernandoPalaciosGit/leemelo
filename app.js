@@ -4,9 +4,10 @@
     var cluster = require('cluster'),
         APP = {
             env : process.env.NODE_ENV,
-            finishProcess: function (options, err) {
+            worker: null,
+            masterWorker: null,
+            finishProcess: function (options) {
                 options.event !== 'exit' && console.error('Exit app process by %s event', options.event);
-                !!err && console.error(err);
                 process.env['NODE_ENV'] = 'development';
                 process.exit();
             },
@@ -15,22 +16,22 @@
              */
             setMasterCluester: function () {
                 var MasterWorker = require('./workers/master.worker'),
-                    masterWorker = new MasterWorker(cluster),
                     cpuCount = require('os').cpus().length;
                      
+                this.masterWorker = new MasterWorker(cluster);
                 /**
                  * Create a worker (with cluster) foreach cpu thread
                  */
                 for (var i = 0; i < cpuCount; i++) {
-                    masterWorker.createSlaveWorker();
+                    this.masterWorker.createSlaveWorker();
                 }
                 
                 /**
                  * Once the worker died, reactivate new one, then we got full working cpus
                  */
                 cluster.on('exit', function (worker){
-                    masterWorker.onWorkerExit(worker);
-                });    
+                    this.masterWorker.onWorkerExit(worker);
+                }.bind(this));    
             },
             /**
              * Manage Slaves Cluster : Execute program in all clusters
@@ -38,21 +39,18 @@
              * We cannot debug into this kind aplications process (there are many http --debug ports)
              */
             initServer: function () {
-                var SlaveWorker = require('./workers/slave.worker'),
-                    appWorker = new SlaveWorker();
+                var SlaveWorker = require('./workers/slave.worker');
                 
-                appWorker.initalizeConnection();
+                this.worker = new SlaveWorker();
+                this.worker.initalizeConnection();
             },
             /**
              * Manage Slave Worker for debug
              * We are not interesting in initalize the routing server, only export server.
              */
             exportTestingServer : function () {
-                var SlaveWorker = require('./workers/slave.worker'),
-                    appWorker = new SlaveWorker();
-                
-                appWorker.initalizeConnection();  
-                module.exports = appWorker.app.expressServer;  
+                this.initServer();
+                module.exports = this.worker.app.expressServer;  
             }
         };
     
@@ -63,14 +61,14 @@
     
     // $set "NODE_ENV=testing" && mocha app
     if (APP.env === 'testing') {
-        APP.exportTestingServer();
+        APP.exportTestingServer.call(APP);
     
     // $set "NODE_ENV=production" && nodemon [--debug] app
     } else if (APP.env === 'production' && cluster.isMaster) {
-        APP.setMasterCluester();
+        APP.setMasterCluester.call(APP);
     
     // $set "NODE_ENV=development" && nodemon [--debug] app
     } else {
-        APP.initServer();
+        APP.initServer.call(APP);
     }
 }());
