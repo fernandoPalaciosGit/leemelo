@@ -53,7 +53,7 @@
                         var idBook = res.body.book.id;
                         
                         testServer
-                            .get('/api/book-id/' + idBook)
+                            .get('/api/book/id/' + idBook)
                             .expect(200)
                             .expect('Content-Type', /application\/json/)
                             .end(function (err, res) {

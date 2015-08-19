@@ -15,7 +15,20 @@
         this.conf = conf;
     };
 
-    ApiBookCtrl.prototype.routeSaveBook = {
+    /**
+     * Route middleware for override common header properties.
+     */
+    ApiBookCtrl.prototype.routeApiBookAll = {
+        url: '/api/book*',
+        method: 'all',
+        restfull: ['GET', 'POST', 'PUT'],
+        callback: function (req, res, next) {
+            res.set('Content-Type', 'application/json');
+            next();
+        }
+    };
+    
+    ApiBookCtrl.prototype.routeApiBookSave = {
         url: '/api/book/save/',
         method: 'post',
         restfull: ['POST', 'PUT'],
@@ -26,13 +39,12 @@
             staticLibrary[bookReq.id] = bookReq;
             res
                 .status(201)
-                .set('Content-Type', 'application/json')
                 .send({book: bookReq});                
         }
     };
         
-    ApiBookCtrl.prototype.routeGetBook = {
-        url: '/api/book-id/:id',
+    ApiBookCtrl.prototype.routeApiBookId = {
+        url: '/api/book/id/:id',
         method: 'get',
         restfull: ['GET'],
         callback: function (req, res) {
@@ -41,7 +53,6 @@
             
             res
                 .status(200)
-                .set('Content-Type', 'application/json')
                 .send({book : bookReq});
         }
     };

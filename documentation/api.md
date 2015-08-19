@@ -11,7 +11,7 @@
 
 *API RESTFULL BOOKS*
 [POST] 'localhost:3000/api/book/save/'
-[GET, PUT, DELETE] 'localhost:3000/api/book-id/:id'
+[GET, PUT, DELETE] 'localhost:3000/api/book/id/:id'
 --------
 
 #### HTTP code supported
@@ -61,7 +61,7 @@ Response
 
 #### Retreave a Book
 
-Request [GET] /api/book-id/456
+Request [GET] /api/book/id/456
 
 Response
 ``````json
@@ -79,7 +79,7 @@ Response
 
 #### Update a Book
     
-Request [PUT] /api/book-id/456
+Request [PUT] /api/book/id/456
 
 ```json
 {
@@ -108,7 +108,7 @@ Response
 
 #### DELETE a Book
     
-Request [DELETE] /api/book-id/456
+Request [DELETE] /api/book/id/456
 
 Response
 ```
