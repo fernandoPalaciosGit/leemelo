@@ -54,6 +54,7 @@
                 var SlaveWorker = require('./workers/slave.worker'),
                     testingConf = clone(conf);
                 
+                testingConf.server.host = 'localhost';
                 testingConf.server.port = 3999;
                 this.worker = new SlaveWorker(testingConf);
                 this.worker.initalizeConnection();

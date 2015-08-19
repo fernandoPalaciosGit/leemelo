@@ -12,7 +12,6 @@
      * @lends Book.prototype properties from Book routing
      * @property {string} url Path route from express routing (http://localhost:3000/[url])
      * @property {method} string expres routing interfaces
-     * @property {restfull} string HTTP methods from restfull services
      * @property {callback} function middleware handlers for expres routing
      */
     BookCtrl = function (conf) {        
@@ -37,7 +36,6 @@
     BookCtrl.prototype.routeAddBook = {
         url: '/create-book/',
         method: 'get',
-        restfull: 'GET',
         callback: function (req, res) {
             var dataTemplate = {
                 titlePage : 'Add new Book'
@@ -55,7 +53,6 @@
     BookCtrl.prototype.routeSaveBook = {
         url: '/save-book/',
         method: 'post',
-        restfull: 'POST',
         callback: function (req, res) {
             var docBook = req.body;
             
@@ -77,7 +74,6 @@
     BookCtrl.prototype.routeGetBook = {
         url: '/isbn-book/:isbn',
         method: 'get',
-        restfull: ['GET'],
         callback: function (req, res) {
             this.model.getBook({isbn: req.params.isbn}, function (err, doc) {
                 var dataTemplate = {};
@@ -107,7 +103,6 @@
     BookCtrl.prototype.routeEditBook = {
         url: '/edit-book/:bookName',
         method: 'get',
-        restfull: ['PUT', 'DELETE'],
         callback: function (req, res) {
             var dataTemplate = {
                 titlePage: 'Edit stored book',
@@ -125,7 +120,6 @@
     BookCtrl.prototype.routeListBook = {
         url: '/list-all-books/',
         method: 'get',
-        restfull: 'GET',
         callback: function (req, res) {
             var dataTemplate = {
                 titlePage : 'List all books'
