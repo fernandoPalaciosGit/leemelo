@@ -2,6 +2,8 @@
     'use strict';
     
     var cluster = require('cluster'),
+        conf = require('./server/conf'),
+        clone = require('clone'),
         APP = {
             env : process.env.NODE_ENV,
             worker: null,
@@ -41,7 +43,7 @@
             initServer: function () {
                 var SlaveWorker = require('./workers/slave.worker');
                 
-                this.worker = new SlaveWorker();
+                this.worker = new SlaveWorker(conf);
                 this.worker.initalizeConnection();
             },
             /**
@@ -49,7 +51,12 @@
              * We are not interesting in initalize the routing server, only export server.
              */
             exportTestingServer : function () {
-                this.initServer();
+                var SlaveWorker = require('./workers/slave.worker'),
+                    testingConf = clone(conf);
+                
+                testingConf.server.port = 3999;
+                this.worker = new SlaveWorker(testingConf);
+                this.worker.initalizeConnection();
                 module.exports = this.worker.app.expressServer;  
             }
         };

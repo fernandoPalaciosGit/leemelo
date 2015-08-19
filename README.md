@@ -47,12 +47,16 @@ $set "NODE_ENV=testing" && mocha app
 
 - open browser window
     - [Open Node inspector](http://127.0.0.1:9999/?ws=127.0.0.1:9999&port=5858)
-    - [Open aplication](http://localhost:3000/book/add/)
+    - [Open aplication](http://localhost:3000/create-book/)
 
 
 
 #### Full Performance of NodeJS server workers for aplication in production environment
 ![nodeJs workers full performance](http://www.cruzalosdedos.es/media/nodejs-workers-app.png "NodeJS worker")
+
+
+
+#### [API BOOK REFERENCE](https://github.com/fernandoPalaciosGit/leemelo/blob/master/documentation/api.md)
 
 
 

@@ -4,6 +4,7 @@
   "description": "nodejs mvc boilerplate proyect",
   "dependencies": {
     "body-parser": "^1.13.3",
+    "clone": "^1.0.2",
     "express": "^4.11.0",
     "mongoose": "^4.1.1",
     "serve-favicon": "^2.3.0",

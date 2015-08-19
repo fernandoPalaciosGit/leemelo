@@ -7,11 +7,10 @@
     
     var http = require('http'),
         mongoose = require('mongoose'),
-        conf = require('./../server/conf'),
         ExpressServer = require('./../server/expressServer'),
         SocketIOServer = require('./../server/socketIOServer');
 
-    var SlaveWorker = function () {
+    var SlaveWorker = function (conf) {
         this.config = conf;
         this.app = new ExpressServer(this.config);
         this.server = http.createServer(this.app.expressServer);

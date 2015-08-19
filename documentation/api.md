@@ -9,12 +9,9 @@
 | *PUT*         | Updarte one resource            |
 | *DELETE*      | Remove one resource             |
 
-*BOOKS*
-url: '/book/add/',
-url: '/book/save/',
-url: '/book/isbn/:isbn',
-url: '/book/edit/:bookName',
-url: '/book/list/',
+*API RESTFULL BOOKS*
+[POST] 'localhost:3000/api/book/save/'
+[GET, PUT, DELETE] 'localhost:3000/api/book-id/:id'
 --------
 
 #### HTTP code supported
@@ -34,7 +31,7 @@ url: '/book/list/',
 
 #### Create a New Book
 
-Request [POST] /book
+Request [POST] /api/book/save/
 
 ```json
 {
@@ -64,7 +61,7 @@ Response
 
 #### Retreave a Book
 
-Request [GET] /book/456
+Request [GET] /api/book-id/456
 
 Response
 ``````json
@@ -82,7 +79,7 @@ Response
 
 #### Update a Book
     
-Request [PUT] /book/456
+Request [PUT] /api/book-id/456
 
 ```json
 {
@@ -109,9 +106,9 @@ Response
 ```
 -------------
 
-#### DELETA a Book
+#### DELETE a Book
     
-Request [DELETE] /book/456
+Request [DELETE] /api/book-id/456
 
 Response
 ```

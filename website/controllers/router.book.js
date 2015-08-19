@@ -6,7 +6,6 @@
      */
     var BookView = require('../views/book'),
         BookModel = require('../models/book'),
-        
     
     /**
      * @class Express routing for book controller
@@ -23,7 +22,6 @@
         this.redirectPaths = function (response, pathname, restParam) {
             var url = [
                 this.conf.getserverPath(),
-                'book',
                 pathname,
                 restParam || ''
             ].join('/');
@@ -37,7 +35,7 @@
      * @type {Object}
      */
     BookCtrl.prototype.routeAddBook = {
-        url: '/book/add/',
+        url: '/create-book/',
         method: 'get',
         restfull: 'GET',
         callback: function (req, res) {
@@ -53,8 +51,9 @@
      * @memberof Book
      * @type {Object}
      */
+    // TODO : incorporate books API restFull
     BookCtrl.prototype.routeSaveBook = {
-        url: '/book/save1/',
+        url: '/save-book/',
         method: 'post',
         restfull: 'POST',
         callback: function (req, res) {
@@ -64,35 +63,19 @@
                 
                 // redirect to isbn stored book, or to form for add new one.
                 if (!err && !!docUpdated) {
-                    this.redirectPaths(res, 'isbn', docUpdated.toJSON().isbn);
+                    this.redirectPaths(res, 'isbn-book', docUpdated.toJSON().isbn);
                 
                 } else {
                     !!err && console.error([err.name, err.errmsg || err.message].join('<->'));
-                    this.redirectPaths(res, 'add');
+                    this.redirectPaths(res, 'create-book');
                 }
                 
             }.bind(this));
         }
     };
-
-    BookCtrl.prototype.routeSaveBook = {
-        url: '/book/save',
-        method: 'post',
-        restfull: 'POST',
-        callback: function (req, res) {
-            var book = req.body.book;
-
-            res
-                .status(201)
-                .set('Content-Type', 'application/json')
-                .json({
-                    book: book 
-                });                
-        }
-    };
         
     BookCtrl.prototype.routeGetBook = {
-        url: '/book/isbn/:isbn',
+        url: '/isbn-book/:isbn',
         method: 'get',
         restfull: ['GET'],
         callback: function (req, res) {
@@ -109,7 +92,7 @@
                 
                 } else {
                     !!err && console.error([err.name, err.errmsg || err.message].join('<->'));
-                    this.redirectPaths(res, 'add');
+                    this.redirectPaths(res, 'create-book');
                 }
                 
             }.bind(this));
@@ -122,7 +105,7 @@
      * @type {Object}
      */
     BookCtrl.prototype.routeEditBook = {
-        url: '/book/edit/:bookName',
+        url: '/edit-book/:bookName',
         method: 'get',
         restfull: ['PUT', 'DELETE'],
         callback: function (req, res) {
@@ -140,7 +123,7 @@
      * @type {Object}
      */
     BookCtrl.prototype.routeListBook = {
-        url: '/book/list/',
+        url: '/list-all-books/',
         method: 'get',
         restfull: 'GET',
         callback: function (req, res) {

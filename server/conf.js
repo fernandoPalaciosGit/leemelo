@@ -13,7 +13,7 @@
             return system.protocol + system.host + ':' + system.port;  
         },
         msgOpenApp: function () {
-            console.log('Aplication listening on %s/book/add, %s environment', this.getserverPath(), this.server.env);
+            console.log('Aplication listening on %s/create-book/, %s environment', this.getserverPath(), this.server.env);
         },
         mongoDB: {
             protocol: 'mongodb://',
