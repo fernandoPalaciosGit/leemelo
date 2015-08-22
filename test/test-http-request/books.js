@@ -2,72 +2,72 @@
     'use strict';
         
     var server = require('../../app'),
-        testServer = require('supertest')(server);
+        testServer = require('supertest-as-promised')(server);
     
     describe('Request /book/save', function () {
-            
+        var _bookTest = {
+                isbn: '123456789',
+                title: 'Title book',
+                description: 'Description book'
+            },
+            _assertBookProperties = function (book) {
+                expect(book).to.have.property('isbn', '123456789');
+                expect(book).to.have.property('title', 'Title book');
+                expect(book).to.have.property('description', 'Description book');
+                expect(book).to.have.property('id');
+            };
+        
         describe('[POST]', function () {
-            
             it('Should create new book or update.', function (done) {
-                var book = {
-                    isbn: '123456789',
-                    title: 'Title book',
-                    description: 'Description book'
-                };
-                
                 testServer
                     .post('/api/book/save/')
                     .type('form')
-                    .send({book: book})
+                    .send({book: _bookTest})
                     .set('Accept', 'application/json')
                     .expect(201)
-                    .end(function (err, res) {
-                        var body = res.body,
-                            book = body.book;
+                    .then(function (res) {
+                        var headerParams = res.body,
+                            bookParams = headerParams.book;
                         
-                        expect(body).to.have.property('book');
-                        expect(book).to.have.property('isbn', '123456789');
-                        expect(book).to.have.property('title', 'Title book');
-                        expect(book).to.have.property('description', 'Description book');
-                        expect(book).to.have.property('id');
-                        done();
-                    });
+                        expect(headerParams).to.have.property('book');    
+                        _assertBookProperties(bookParams);
+                    })
+                    .then(done)
+                    .catch(console.log.bind(console));
             });
         });
 
         describe('[GET]', function () {
             it('Should retrieve an existance book.', function (done) {
-                var book = {
-                        isbn: '123456789',
-                        title: 'Title book',
-                        description: 'Description book'
-                    };
+                var idBook = null;
                 
+                // Create or update Book
                 testServer
                     .post('/api/book/save/')
                     .type('form')
-                    .send({book: book})
+                    .send({book: _bookTest})
                     .set('Accept', /application\/json/)
                     .expect(201)
-                    .end(function (err, res) {
-                        var idBook = res.body.book.id;
+                    .then(function (res) {
+                        idBook = res.body.book.id;
                         
-                        testServer
+                        // get The Book cerated before
+                        return testServer
                             .get('/api/book/id/' + idBook)
                             .expect(200)
-                            .expect('Content-Type', /application\/json/)
-                            .end(function (err, res) {
-                                var body = res.body,
-                                    book = body.book;
-                            
-                                expect(body).to.have.property('book');
-                                expect(book).to.have.property('isbn').to.equal('123456789');
-                                expect(book).to.have.property('title').to.equal('Title book');
-                                expect(book).to.have.property('description').to.equal('Description book');
-                                expect(book).to.have.property('id').to.equal(idBook);
-                                done();
-                            });
-                    });
+                            .expect('Content-Type', /application\/json/);
+                    })
+                    .then(function (res) {
+                        var headerParams = res.body,
+                            bookParams = headerParams.book;
+                        
+                        // Assertions ti Testing Book
+                        expect(headerParams).to.have.property('book');
+                        _assertBookProperties(bookParams);
+                        expect(bookParams).to.have.property('id').to.equal(idBook);
+                    })
+                    .then(done)
+                    .catch(console.log.bind(console));
             });
         });
     });
