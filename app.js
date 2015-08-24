@@ -8,8 +8,9 @@
             env : process.env.NODE_ENV,
             worker: null,
             masterWorker: null,
-            finishProcess: function (options) {
+            finishProcess: function (options, err) {
                 options.event !== 'exit' && console.error('Exit app process by %s event', options.event);
+                !!err && console.error(err);
                 process.env['NODE_ENV'] = 'development';
                 process.exit();
             },

@@ -57,5 +57,21 @@
         }
     };
     
+    ApiBookCtrl.prototype.routeApiBookPut = {
+        url: '/api/book/id/:id',
+        method: 'put',
+        restfull: ['POST', 'PUT'],
+        callback: function (req, res) {
+            var bookId = req.params.id,
+                bookReq = req.body.book;
+            
+            bookReq.id = parseInt(bookId, 10);
+            staticLibrary[bookId] = bookReq; 
+            res
+                .status(200)
+                .send({book: staticLibrary[bookId]});
+        }
+    };
+    
     module.exports = ApiBookCtrl;
 }());

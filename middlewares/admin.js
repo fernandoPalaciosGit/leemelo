@@ -1,7 +1,8 @@
 // list of middlewares that express use
 module.exports = {
-    static: require('./static.middleware'),
+    staticFiles: require('./static.middleware'),
+    bodyParserExtend: require('./bodyParser.extend.middleware'),
+    bodyParserJson: require('./bodyParser.json.middleware'),
     favicon: require('./favicon.middleware'),
-    locals: require('./locals.middleware'),
-    bodyParser: require('./bodyParser.middleware')
+    locals: require('./locals.middleware')
 };
