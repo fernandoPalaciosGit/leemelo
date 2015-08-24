@@ -1,5 +1,4 @@
-test\test-http-request\books.js
---recursive
---ui bdd
 --reporter spec
+--ui bdd
+--recursive
 -r test/modules/setup

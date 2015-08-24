@@ -6,7 +6,6 @@
         swig = require('swig'),
         middlewares = require('../middlewares/admin'),
         routeList = require('../website/router'),
-        routerControllers = [],
         initExpressMiddlewares = function () {
             for (var middleware in middlewares) {
                 this.expressServer.use(middlewares[middleware]);
@@ -28,12 +27,11 @@
             var routerConstructor, router, resources, resource; 
             
             for (routerConstructor in routeList) {
-                // Instance All router controllers
+                // Initialize Instance from all routeList controllers
                 router = new routeList[routerConstructor](this.conf);
-                routerControllers.push(router);
                 
+                // For our structure, throw routeList prototype objects, initialize all our resources
                 for (resources in router.constructor.prototype) {
-                    // initialize all resources from controllers
                     resource = router[resources];
                     this.expressServer[resource.method](resource.url, resource.callback.bind(router));
                 }
