@@ -98,11 +98,8 @@
                         bookParams.title = 'Title book for Nerds';
                         testServer
                             .put('/api/book/id/' + idBook)
-                            .type('form')
                             .send({book: bookParams})
-                            .expect(200)
-                            .expect('Content-Type', /application\/json/);
-                            
+                            .expect(200);
                     })
                     .then(function (res) {
                         var headerParams = res.body,

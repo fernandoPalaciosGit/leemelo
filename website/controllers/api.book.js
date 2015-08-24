@@ -49,18 +49,20 @@
         restfull: ['GET'],
         callback: function (req, res) {
             var bookId = req.params.id,
-                bookReq = staticLibrary[bookId];
+                bookReq = staticLibrary[bookId],
+                resApi = !bookReq ? {status: 404, bookRes: {}} :
+                                    {status: 200, bookRes: {book: bookReq}};
             
             res
-                .status(200)
-                .send({book : bookReq});
+                .status(resApi.status)
+                .send(resApi.bookRes);
         }
     };
     
     ApiBookCtrl.prototype.routeApiBookPut = {
         url: '/api/book/id/:id',
         method: 'put',
-        restfull: ['POST', 'PUT'],
+        restfull: ['PUT'],
         callback: function (req, res) {
             var bookId = req.params.id,
                 bookReq = req.body.book;
@@ -70,6 +72,20 @@
             res
                 .status(200)
                 .send({book: staticLibrary[bookId]});
+        }
+    };
+    
+    ApiBookCtrl.prototype.routeApiBookDelete = {
+        url: '/api/book/id/:id',
+        method: 'delete',
+        restfull: ['DELETE'],
+        callback: function (req, res) {
+            var bookId = req.params.id;
+            
+            delete staticLibrary[bookId];
+            res
+                .status(200)
+                .send();      
         }
     };
     
