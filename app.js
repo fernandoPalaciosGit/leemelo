@@ -1,9 +1,9 @@
 ;(function () {
     'use strict';
     
-    var cluster = require('cluster'),
+    var _ = require('lodash'),
+        cluster = require('cluster'),
         conf = require('./server/conf'),
-        clone = require('clone'),
         APP = {
             env : process.env.NODE_ENV,
             worker: null,
@@ -53,7 +53,7 @@
              */
             exportTestingServer : function () {
                 var SlaveWorker = require('./workers/slave.worker'),
-                    testingConf = clone(conf);
+                    testingConf = _.clone(conf);
                 
                 testingConf.server.host = 'localhost';
                 testingConf.server.port = 3999;
