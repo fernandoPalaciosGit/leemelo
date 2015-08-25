@@ -49,7 +49,10 @@ $set "NODE_ENV=testing" && mocha app
     - [Open Node inspector](http://127.0.0.1:9999/?ws=127.0.0.1:9999&port=5858)
     - [Open aplication](http://localhost:3000/create-book/)
 
-
+- Running *debug package* for testing tracktrace for api restfull resource
+```bash
+$set DEBUG=mocha:*,express:* && mocha test
+```
 
 #### Full Performance of NodeJS server workers for aplication in production environment
 ![nodeJs workers full performance](http://www.cruzalosdedos.es/media/nodejs-workers-app.png "NodeJS worker")

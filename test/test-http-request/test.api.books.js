@@ -21,7 +21,6 @@
             it('Should create new book or update.', function (done) {
                 testServer
                     .post('/api/book/save/')
-                    .type('form')
                     .send({book: _bookTest})
                     .set('Accept', 'application/json')
                     .expect(201)
@@ -44,7 +43,6 @@
                 // Create or update Book
                 testServer
                     .post('/api/book/save/')
-                    .type('form')
                     .send({book: _bookTest})
                     .set('Accept', /application\/json/)
                     .expect(201)
@@ -78,7 +76,6 @@
                 // Create or update Book [POST]
                 testServer
                     .post('/api/book/save/')
-                    .type('form')
                     .send({book: _bookTest})
                     .set('Accept', /application\/json/)
                     .expect(201)
@@ -96,7 +93,7 @@
                             bookParams = headerParams.book;
                         
                         bookParams.title = 'Title book for Nerds';
-                        testServer
+                        return testServer
                             .put('/api/book/id/' + idBook)
                             .send({book: bookParams})
                             .expect(200);
@@ -122,7 +119,6 @@
                 // Create or update Book [POST]
                 testServer
                     .post('/api/book/save/')
-                    .type('form')
                     .send({book: _bookTest})
                     .set('Accept', /application\/json/)
                     .expect(201)
@@ -141,7 +137,7 @@
                         
                         bookParams.title = 'Title book for Nerds';
                         // remove a book [DELETE]
-                        testServer
+                        return testServer
                             .delete('/api/book/id/' + idBook)
                             .expect(200);    
                     })
