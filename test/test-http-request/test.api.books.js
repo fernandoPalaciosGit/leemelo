@@ -1,7 +1,8 @@
 ;(function () {
     'use strict';
         
-    var server = require('../../app'),
+    var _ = require('lodash'),
+        server = require('../../app'),
         testServer = require('supertest-as-promised')(server);
     
     describe('Request /book/save', function () {
@@ -18,11 +19,11 @@
                 expect(book).to.have.property('description', 'Description book');
                 expect(book).to.have.property('id');
             },
-            _createNewBook = function () {
+            _createNewBook = function (book) {
                 return testServer
                     .post('/api/book/save/')
                     .set('Accept', 'application/json')
-                    .send(_bookTest)
+                    .send(book)
                     .expect(201)
                     .then(function (res) {
                         var headerParams = res.body;
@@ -32,7 +33,7 @@
                     }.bind(this));
             };
         
-        beforeEach(_createNewBook);
+        beforeEach(_createNewBook.bind(this, _bookTest));
         
         describe('[POST]', function () {
             it('Should create new book or update.', function (done) {
@@ -63,10 +64,14 @@
             });
             
             it('Should retrieve all book list', function (done) {
-                _createNewBook.call(this)
-                .then(_createNewBook.bind(this))
-                .then(_createNewBook.bind(this))
-                .then(_createNewBook.bind(this))
+                var book = _.clone(_bookTest);
+                
+                book.title = 'assert book';
+                book.slug = 'slug for assert book';
+                _createNewBook.call(this, _bookTest)
+                .then(_createNewBook.bind(this, _bookTest))
+                .then(_createNewBook.bind(this, book))
+                .then(_createNewBook.bind(this, _bookTest))
                 .then(function () {
                     return testServer
                         .get('/api/books/')
@@ -74,12 +79,16 @@
                         .expect('Content-Type', /application\/json/);
                 })
                 .then(function (res) {
-                    var body = res.body;
-
+                    var body = res.body,
+                        bookAssert = _.find(body, {title: 'testing all books'});
+                         
                     expect(body)
                         .to.have.property('books')
                         .that.is.an('array')
-                        .and.to.have.length(4);
+                        .and.to.have.length.above(4);
+                    
+                    expect(bookAssert)
+                        .to.have.property('slug', 'slug for assert book');
                 })
                 .finally(done);
             });
