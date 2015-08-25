@@ -23,6 +23,7 @@
                     .post('/api/book/save/')
                     .set('Accept', 'application/json')
                     .send(_bookTest)
+                    .expect(201)
                     .then(function (res) {
                         var headerParams = res.body;
                         
@@ -57,6 +58,28 @@
                     expect(headerParams).to.have.property('book');
                     _assertBookProperties(bookParams);
                     expect(bookParams).to.have.property('id').to.equal(idBook);
+                })
+                .finally(done);
+            });
+            
+            it('Should retrieve all book list', function (done) {
+                _createNewBook.call(this)
+                .then(_createNewBook.bind(this))
+                .then(_createNewBook.bind(this))
+                .then(_createNewBook.bind(this))
+                .then(function () {
+                    return testServer
+                        .get('/api/books/')
+                        .expect(200)
+                        .expect('Content-Type', /application\/json/);
+                })
+                .then(function (res) {
+                    var body = res.body;
+
+                    expect(body)
+                        .to.have.property('books')
+                        .that.is.an('array')
+                        .and.to.have.length(4);
                 })
                 .finally(done);
             });
