@@ -5,6 +5,7 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "clone": "^1.0.2",
+    "cors": "^2.7.1",
     "express": "^4.11.0",
     "lodash": "^3.10.1",
     "mongoose": "^4.1.1",
@@ -21,8 +22,8 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "set \"NODE_ENV=development\" && nodemon",
-    "test": "set \"NODE_ENV=testing\" && mocha"
+    "start": "set \"NODE_ENV=development\" && nodemon --debug",
+    "test": "set \"NODE_ENV=testing\" && set DEBUG= && mocha"
   },
   "repository": {
     "type": "git",
