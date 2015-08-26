@@ -77,16 +77,15 @@
                 .then(_createNewBook.bind(this, null))
                 .then(function () {
                     return testServer
-                        .get('/api/books/')
+                        .get('/api/book-list/')
                         .expect(200)
                         .expect('Content-Type', /application\/json/);
                 })
                 .then(function (res) {
-                    var body = res.body,
-                        bookAssert = _.find(body, {title: 'title for assert book'});
-                         
-                    expect(body)
-                        .to.have.property('books')
+                    var books = res.body,
+                        bookAssert = _.find(books, {title: 'title for assert book'});
+                    
+                    expect(books)
                         .that.is.an('array')
                         .and.to.have.length.above(4);
                     
@@ -142,10 +141,10 @@
                         // remove a book [DELETE]
                         return testServer
                             .delete('/api/book/id/' + idBook)
-                            .expect(200);    
+                            .expect(200);
                     })
                     .then(function () {
-                        testServer
+                        return testServer
                             .get('/api/book/id/' + idBook)
                             .expect(404);
                     })

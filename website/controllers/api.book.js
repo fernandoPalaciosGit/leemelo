@@ -1,7 +1,8 @@
 ;(function () {
     'use strict';
     
-    var staticLibrary = [];
+    var _ = require('lodash'),
+        staticLibrary = {};
     
     /**
      * @class RESTFULL API for Books Library
@@ -19,7 +20,7 @@
      * Route middleware for override common header properties.
      */
     ApiBookCtrl.prototype.routeApiBookAll = {
-        url: '/api/book*',
+        url: /\/api\/[book|book-list]\/*/,
         method: 'all',
         restfull: ['GET', 'POST', 'PUT'],
         callback: function (req, res, next) {
@@ -31,7 +32,7 @@
     ApiBookCtrl.prototype.routeApiBookSave = {
         url: '/api/book/save/',
         method: 'post',
-        restfull: ['POST', 'PUT'],
+        restfull: ['POST'],
         callback: function (req, res) {
             var bookReq = req.body.book;
             
@@ -50,12 +51,12 @@
         callback: function (req, res) {
             var bookId = req.params.id,
                 bookReq = staticLibrary[bookId],
-                resApi = !bookReq ? {status: 404, bookRes: {}} :
-                                    {status: 200, bookRes: {book: bookReq}};
+                resApi = _.isUndefined(bookReq) ?
+                        {status: 404, bookRes: {}} : {status: 200, bookRes: bookReq};
             
             res
                 .status(resApi.status)
-                .send(resApi.bookRes);
+                .send({book: resApi.bookRes});
         }
     };
     
@@ -75,6 +76,19 @@
         }
     };
     
+    ApiBookCtrl.prototype.apiRouteListBooks = {
+        url: '/api/book-list/',
+        method: 'get',
+        restfull: ['GET'],
+        callback: function (req, res) {
+            var books = _.values(staticLibrary);
+            
+            res
+                .status(200)
+                .send(books);
+        }
+    };
+    
     ApiBookCtrl.prototype.routeApiBookDelete = {
         url: '/api/book/id/:id',
         method: 'delete',
@@ -85,7 +99,7 @@
             delete staticLibrary[bookId];
             res
                 .status(200)
-                .send();      
+                .send({});
         }
     };
     
