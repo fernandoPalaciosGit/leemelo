@@ -11,7 +11,7 @@
             finishProcess: function (options, err) {
                 options.event !== 'exit' && console.error('Exit app process by %s event', options.event);
                 !!err && console.error(err);
-                process.env['NODE_ENV'] = 'development';
+                process.env['NODE_ENV'] = '';
                 process.exit();
             },
             /**
@@ -42,9 +42,12 @@
              * We cannot debug into this kind aplications process (there are many http --debug ports)
              */
             initServer: function () {
-                var SlaveWorker = require('./workers/slave.worker');
+                var SlaveWorker = require('./workers/slave.worker'),
+                    serverName = APP.env === 'production' ? 'serverProd' : 'serverDev',
+                    confServer = _.clone(conf);
                 
-                this.worker = new SlaveWorker(conf);
+                confServer.server = confServer[serverName];
+                this.worker = new SlaveWorker(confServer);
                 this.worker.initalizeConnection();
             },
             /**
@@ -53,11 +56,10 @@
              */
             exportTestingServer : function () {
                 var SlaveWorker = require('./workers/slave.worker'),
-                    testingConf = _.clone(conf);
+                    confServer = _.clone(conf);
                 
-                testingConf.server.host = 'localhost';
-                testingConf.server.port = 3999;
-                this.worker = new SlaveWorker(testingConf);
+                confServer.server = confServer['serverTest'];
+                this.worker = new SlaveWorker(confServer);
                 this.worker.initalizeConnection();
                 module.exports = this.worker.app.expressServer;  
             }
@@ -66,7 +68,7 @@
     // retun NODE_ENV default settings
     process.on('exit', APP.finishProcess.bind(APP, {event: 'exit'}));
     process.on('SIGINT', APP.finishProcess.bind(APP, {event: 'SIGINT'}));
-    process.on('uncaughtException', APP.finishProcess.bind(APP, {event: 'SIGINT'}));
+    process.on('uncaughtException', APP.finishProcess.bind(APP, {event: 'uncaughtException'}));
     
     // $set "NODE_ENV=testing" && mocha app
     if (APP.env === 'testing') {

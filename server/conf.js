@@ -2,18 +2,32 @@
     'use strict';
     
     module.exports = {
-        server: {
+        server: null,
+        serverDev: {
             protocol: 'http://',
             host: 'localhost',
             port: 3000,
             env: process.env.NODE_ENV
         },
-        getserverPath: function () {
-            var system = this.server; 
-            return system.protocol + system.host + ':' + system.port;  
+        serverProd: {
+            protocol: 'http://',
+            host: 'www.cruzalosdedos.es',
+            port: 80,
+            env: process.env.NODE_ENV
         },
-        msgOpenApp: function () {
-            console.log('Aplication listening on %s, %s environment', this.getserverPath(), this.server.env);
+        serverTest: {
+            protocol: 'http://',
+            host: 'localhost',
+            port: 3999,
+            env: process.env.NODE_ENV
+        },
+        getserverPath: function (s) {
+            var server = this.server || this[s];
+            return server.protocol + server.host + ':' + server.port;
+        },
+        msgOpenApp: function (s) {
+            var server = this.server || this[s];
+            console.log('Aplication listening on %s, %s environment', this.getserverPath(), server.env);
         },
         mongoDB: {
             protocol: 'mongodb://',
