@@ -58,8 +58,8 @@
             
             this.model.saveBook(docBook, function (err, docUpdated) {
                 
-                // redirect to isbn stored book, or to form for add new one.
-                if (!err && !!docUpdated) {
+                // redirect to isbn stored book, or to form for add new one. 
+               if (!err && !!docUpdated) {
                     this.redirectPaths(res, 'isbn-book', docUpdated.toJSON().isbn);
                 
                 } else {

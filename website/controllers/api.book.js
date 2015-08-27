@@ -9,7 +9,6 @@
      * @lends Book.prototype properties from Book API
      * @property {string} url Path route from express routing (http://localhost:3000/[url])
      * @property {string} method expres routing interfaces
-     * @property {string} restfull HTTP methods from restfull services
      * @property {function} callback middleware handlers for expres routing
      */
     var ApiBookCtrl = function (conf) {        
@@ -22,7 +21,6 @@
     ApiBookCtrl.prototype.routeApiBookAll = {
         url: /\/api\/[book|book-list]\/*/,
         method: 'all',
-        restfull: ['GET', 'POST', 'PUT'],
         callback: function (req, res, next) {
             res.set('Content-Type', 'application/json');
             next();
@@ -32,7 +30,6 @@
     ApiBookCtrl.prototype.routeApiBookSave = {
         url: '/api/book/save/',
         method: 'post',
-        restfull: ['POST'],
         callback: function (req, res) {
             var bookReq = req.body.book;
             
@@ -47,7 +44,6 @@
     ApiBookCtrl.prototype.routeApiBookId = {
         url: '/api/book/id/:id',
         method: 'get',
-        restfull: ['GET'],
         callback: function (req, res) {
             var bookId = req.params.id,
                 bookReq = staticLibrary[bookId],
@@ -63,7 +59,6 @@
     ApiBookCtrl.prototype.routeApiBookPut = {
         url: '/api/book/id/:id',
         method: 'put',
-        restfull: ['PUT'],
         callback: function (req, res) {
             var bookId = req.params.id,
                 bookReq = req.body.book;
@@ -79,7 +74,6 @@
     ApiBookCtrl.prototype.apiRouteListBooks = {
         url: '/api/book-list/',
         method: 'get',
-        restfull: ['GET'],
         callback: function (req, res) {
             var books = _.values(staticLibrary);
             
@@ -92,7 +86,6 @@
     ApiBookCtrl.prototype.routeApiBookDelete = {
         url: '/api/book/id/:id',
         method: 'delete',
-        restfull: ['DELETE'],
         callback: function (req, res) {
             var bookId = req.params.id;
             
