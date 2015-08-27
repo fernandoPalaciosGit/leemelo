@@ -54,39 +54,33 @@
         callback: function (req, res) {
             var docBook = req.body;
             
-            this.model.saveBook(docBook, function (err, docUpdated) {
-                
+            this.model.saveBook(docBook)
+            .then(function (doc) {
+                return this.model.getBookById(doc.id);
+            })
+            .then(function (doc) {
                 // redirect to isbn stored book, or to form for add new one. 
-               if (!err && !!docUpdated) {
-                    this.redirectPaths(res, 'isbn-book', docUpdated.toJSON().isbn);
-                
-                } else {
-                    !!err && console.error([err.name, err.errmsg || err.message].join('<->'));
-                    this.redirectPaths(res, 'create-book');
-                }
-                
-            }.bind(this));
+                this.redirectPaths(res, 'isbn-book', doc.toJSON().isbn);
+            })
+            .catch(function (error) {
+                console.error(error);
+                this.redirectPaths(res, 'create-book', error);
+            });
         }
     };
-        
+    
     BookCtrl.prototype.routeGetBook = {
         url: '/isbn-book/:isbn',
         method: 'get',
         callback: function (req, res) {
-            this.model.getBook({isbn: req.params.isbn}, function (err, doc) {
-                // return template with isbn book or redirect to form for add new one. 
-                if (!err && doc.length > 0) {
-                    var dataTemplate = {
-                        book: doc[0]
-                    };
-                    this.view.renderGetBook(res, dataTemplate);
-                
-                } else {
-                    !!err && console.error([err.name, err.errmsg || err.message].join('<->'));
-                    this.redirectPaths(res, 'create-book');
-                }
-                
-            }.bind(this));
+            this.model.getBookByIsbn(req.params.isbn)
+            .then(function (doc) {
+                this.view.renderGetBook(res, {book: doc[0]});
+            })
+            .catch(function (error) {
+                console.error(error);
+                this.redirectPaths(res, 'create-book', error);
+            });
         }
     };
 
