@@ -4,8 +4,8 @@
     /**
      * @instanceof Book
      */
-    var BookView = require('../views/book'),
-        BookModel = require('../models/book'),
+    var BookView = require('./../../views/view.book'),
+        BookModel = require('./../../models/model.book'),
     
     /**
      * @class Express routing for book controller
@@ -37,9 +37,7 @@
         url: '/create-book/',
         method: 'get',
         callback: function (req, res) {
-            var dataTemplate = {
-                titlePage : 'Add new Book'
-            };
+            var dataTemplate = {};
             this.view.renderAddBook(res, dataTemplate);
         }
     };
@@ -76,12 +74,9 @@
         method: 'get',
         callback: function (req, res) {
             this.model.getBook({isbn: req.params.isbn}, function (err, doc) {
-                var dataTemplate = {};
-                
                 // return template with isbn book or redirect to form for add new one. 
                 if (!err && doc.length > 0) {
-                    dataTemplate = {
-                        titlePage: 'Data Stored book',
+                    var dataTemplate = {
                         book: doc[0]
                     };
                     this.view.renderGetBook(res, dataTemplate);
@@ -96,7 +91,7 @@
     };
 
     /**
-     * Edit books books
+     * Edit books
      * @memberof Book
      * @type {Object}
      */
@@ -105,7 +100,6 @@
         method: 'get',
         callback: function (req, res) {
             var dataTemplate = {
-                titlePage: 'Edit stored book',
                 book: {name: req.params.bookName}
             };
             this.view.renderEditBook(res, dataTemplate);
@@ -121,9 +115,7 @@
         url: '/list-all-books/',
         method: 'get',
         callback: function (req, res) {
-            var dataTemplate = {
-                titlePage : 'List all books'
-            };
+            var dataTemplate = {};
             this.view.renderListBook(res, dataTemplate);
         }
     };

@@ -1,4 +1,4 @@
-{% extends '../base.html' %}
+{% extends './../base.html' %}
 
 {% block wrapper-tmpl %}
 <ul>
@@ -6,8 +6,8 @@
     <li><strong>title</strong> : [[ book.title ]]</li>
     <li><strong>description</strong> : [[ book.description ]]</li>
 </ul>
-{% include '../scripts/factories/globalConfig.html' %}
-{% include '../scripts/prototypes/socketIo.html' %}
-{% include '../scripts/widgets/bookShow.html' %}
+{% include './../../scripts/factories/globalConfig.html' %}
+{% include './../../scripts/prototypes/socketIo.html' %}
+{% include './../../scripts/widgets/bookShow.html' %}
 {% endblock %}
     

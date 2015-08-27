@@ -1,7 +1,7 @@
 ;(function () {
     'use strict';
     
-    var BookMongoModel = require('./schema/book'),
+    var BookMongoModel = require('./schema/schema.book'),
         BookModel = function (conf) {
             this.conf = conf;
             this.mongoModel = BookMongoModel;

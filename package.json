@@ -22,7 +22,7 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "set \"NODE_ENV=development\" && nodemon --debug",
+    "start": "set \"NODE_ENV=development\" && set DEBUG= && nodemon --debug",
     "test": "set \"NODE_ENV=testing\" && set DEBUG= && mocha"
   },
   "repository": {

@@ -4,8 +4,8 @@
     var env = process.env.NODE_ENV || 'production',
         express = require('express'),
         swig = require('swig'),
-        middlewares = require('../middlewares/admin'),
-        routeList = require('../website/router'),
+        middlewares = require('./../middlewares/admin'),
+        routeList = require('./../website/controllers/router'),
         initExpressMiddlewares = function () {
             for (var middleware in middlewares) {
                 this.expressServer.use(middlewares[middleware]);
@@ -15,7 +15,7 @@
         initExpressTemplates = function () {
             this.expressServer.engine('html', swig.renderFile);
             this.expressServer.set('view engine', 'html'); // template of view
-            this.expressServer.set('views', __dirname + './../website/views/templates');
+            this.expressServer.set('views', [__dirname + './../website/views/book/templates']);
             this.expressServer.set('view cache', this.isProductionEnv);
             swig.setDefaults({
                 cache: this.isProductionEnv ? 'memory' : false,
