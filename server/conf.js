@@ -2,7 +2,7 @@
     'use strict';
     
     module.exports = {
-        server: null,
+        server: null, // current server running depending on NODE_ENV
         serverDev: {
             protocol: 'http://',
             host: 'localhost',
@@ -20,6 +20,17 @@
             host: 'localhost',
             port: 3999,
             env: process.env.NODE_ENV
+        },
+        session: {
+            secret: 'leemelo-app-123-poweredby-fpl',
+            name: 'sessionId', // name of the session ID cookie response
+            resave: false,
+            saveUninitialized: true,
+            cookie: {
+                maxAge: 3600000, // after 1 hour, reset data and call req.session.touch()
+                httpOnly: true,
+                secure: false // cookies trusted for https
+            }
         },
         getserverPath: function (s) {
             var server = this.server || this[s];

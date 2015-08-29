@@ -14,19 +14,7 @@
     var ApiBookCtrl = function (conf) {        
         this.conf = conf;
     };
-
-    /**
-     * Route middleware for override common header properties.
-     */
-    ApiBookCtrl.prototype.routeApiBookAll = {
-        url: /\/api\/[book|book-list]\/*/,
-        method: 'all',
-        callback: function (req, res, next) {
-            res.set('Content-Type', 'application/json');
-            next();
-        }
-    };
-    
+        
     ApiBookCtrl.prototype.routeApiBookSave = {
         url: '/api/book/save/',
         method: 'post',

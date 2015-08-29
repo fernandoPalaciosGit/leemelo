@@ -2,9 +2,9 @@
 
 {% block wrapper-tmpl %}
 <ul>
-    <li><small>ISBN [[ book.isbn ]]</small></li>
-    <li><strong>title</strong> : [[ book.title ]]</li>
-    <li><strong>description</strong> : [[ book.description ]]</li>
+    <li><small>ISBN {{ book.isbn }}</small></li>
+    <li><strong>title</strong> : {{ book.title }}</li>
+    <li><strong>description</strong> : {{ book.description }}</li>
 </ul>
 {% include './../../scripts/factories/globalConfig.html' %}
 {% include './../../scripts/prototypes/socketIo.html' %}

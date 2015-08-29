@@ -24,11 +24,11 @@
             };
         
         this.mongoModel.findOneAndUpdate(query, docBook, queryOptions, function (err, doc) {
-            if (_.isUndefined(err) && !_.isEmpty(doc)) {
+            if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
             
             } else {
-                deferred.reject(new Error(err));
+                deferred.reject(err);
             }
         });
         
@@ -39,11 +39,12 @@
         var deferred  = Q.defer();
         
         this.mongoModel.findById({id : id}, function (err, doc) {
-            if (_.isUndefined(err) && !_.isEmpty(doc)) {
+            if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
             
             } else {
-                deferred.reject(new Error(err));
+                var error = err || new Error('Not found book with id : ' + id);
+                deferred.reject(error);
             }            
         });
         return deferred.promise;
@@ -53,11 +54,12 @@
         var deferred  = Q.defer();
         
         this.mongoModel.find({isbn: isbn}, function (err, doc) {
-            if (_.isUndefined(err) && !_.isEmpty(doc)) {
+            if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
             
             } else {
-                deferred.reject(new Error(err));
+                var error = err || new Error('Not found book with isbn : ' + isbn);
+                deferred.reject(error);
             }            
         });
         return deferred.promise;

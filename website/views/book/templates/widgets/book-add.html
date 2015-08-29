@@ -2,6 +2,7 @@
 
 {% block wrapper-tmpl %}
 <form action="/save-book" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrftoken }}"/>
     <p>
         <label for="isbn">ISBN: </label>
         <input id="isbn" type="text" name="isbn" required>

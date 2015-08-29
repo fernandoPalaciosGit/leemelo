@@ -4,7 +4,8 @@
     /**
      * @instanceof Book
      */
-    var BookView = require('./../../views/view.book'),
+    var _ = require('lodash'),
+        BookView = require('./../../views/view.book'),
         BookModel = require('./../../models/model.book'),
     
     /**
@@ -14,7 +15,7 @@
      * @property {method} string expres routing interfaces
      * @property {callback} function middleware handlers for expres routing
      */
-    BookCtrl = function (conf) {        
+    PagesBookCtrl = function (conf) {        
         this.conf = conf;
         this.view = new BookView();
         this.model = new BookModel();
@@ -24,6 +25,7 @@
                 pathname,
                 restParam || ''
             ].join('/');
+            
             response.redirect(url);
         };
     };
@@ -33,12 +35,23 @@
      * @memberof Book
      * @type {Object}
      */
-    BookCtrl.prototype.routeAddBook = {
+    PagesBookCtrl.prototype.routeAddBook = {
         url: '/create-book/',
         method: 'get',
         callback: function (req, res) {
             var dataTemplate = {};
+            
             this.view.renderAddBook(res, dataTemplate);
+        }
+    };
+    
+    PagesBookCtrl.prototype.routeLanding = {
+        url: '/landing/',
+        method: 'get',
+        callback: function (req, res) {
+            var dataTemplate = {};
+            
+            this.view.renderLanding(res, dataTemplate);
         }
     };
     
@@ -48,55 +61,39 @@
      * @type {Object}
      */
     // TODO : incorporate books API restFull
-    BookCtrl.prototype.routeSaveBook = {
+    PagesBookCtrl.prototype.routeSaveBook = {
         url: '/save-book/',
         method: 'post',
         callback: function (req, res) {
             var docBook = req.body;
             
             this.model.saveBook(docBook)
-            .then(function (doc) {
+            .then(_.bind(function (doc) {
                 return this.model.getBookById(doc.id);
-            })
-            .then(function (doc) {
+            }, this))
+            .then(_.bind(function (doc) {
                 // redirect to isbn stored book, or to form for add new one. 
                 this.redirectPaths(res, 'isbn-book', doc.toJSON().isbn);
-            })
-            .catch(function (error) {
-                console.error(error);
-                this.redirectPaths(res, 'create-book', error);
-            });
+            }, this))
+            .catch(_.bind(function (err) {
+                console.dir(err);
+                this.redirectPaths(res, 'create-book');
+            }, this));
         }
     };
     
-    BookCtrl.prototype.routeGetBook = {
+    PagesBookCtrl.prototype.routeGetBook = {
         url: '/isbn-book/:isbn',
         method: 'get',
         callback: function (req, res) {
             this.model.getBookByIsbn(req.params.isbn)
-            .then(function (doc) {
+            .then(_.bind(function (doc) {
                 this.view.renderGetBook(res, {book: doc[0]});
-            })
-            .catch(function (error) {
-                console.error(error);
-                this.redirectPaths(res, 'create-book', error);
-            });
-        }
-    };
-
-    /**
-     * Edit books
-     * @memberof Book
-     * @type {Object}
-     */
-    BookCtrl.prototype.routeEditBook = {
-        url: '/edit-book/:bookName',
-        method: 'get',
-        callback: function (req, res) {
-            var dataTemplate = {
-                book: {name: req.params.bookName}
-            };
-            this.view.renderEditBook(res, dataTemplate);
+            }, this))
+            .catch(_.bind(function (err){
+                console.dir(err);
+                this.redirectPaths(res, 'create-book');
+            }, this));
         }
     };
     
@@ -105,7 +102,7 @@
      * @memberof Book
      * @type {Object}
      */
-    BookCtrl.prototype.routeListBook = {
+    PagesBookCtrl.prototype.routeListBook = {
         url: '/list-all-books/',
         method: 'get',
         callback: function (req, res) {
@@ -113,6 +110,34 @@
             this.view.renderListBook(res, dataTemplate);
         }
     };
+    
+    PagesBookCtrl.prototype.routeLogin = {
+        url: /\/[login|access]?/,
+        method: 'get',
+        callback: function (req, res) {
+            if (!_.isUndefined(req.session.sessionlastAccess)) {
+                this.redirectPaths(res, 'create-book');
+            
+            } else {
+                this.redirectPaths(res, 'landing');
+            }
+        }
+    };
+    
+    PagesBookCtrl.prototype.routeLogout = {
+        url: '/logout/',
+        method: 'get',
+        callback: function (req, res) {
+            req.session.destroy(function(err) {
+                if (!_.isUndefined(err)) {
+                    this.redirectPaths(res, 'settings');
+                
+                } else {
+                    this.redirectPaths(res, 'landing');
+                }
+            });
+        }
+    };
 
-    module.exports = BookCtrl;
+    module.exports = PagesBookCtrl;
 }());
