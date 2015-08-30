@@ -35,6 +35,21 @@
         return deferred.promise;
     };
     
+    BookModel.prototype.getAllBooks = function () {
+        var deferred = Q.defer();
+        
+        this.mongoModel.find({}, '-description', {lean: true}, function (err, doc) {
+           if (_.isNull(err) && !_.isEmpty(doc)) {
+                deferred.resolve(doc);
+            
+            } else {
+                deferred.reject(err);
+            }
+        });
+        
+        return deferred.promise;
+    };
+    
     BookModel.prototype.getBookById = function (id) {
         var deferred  = Q.defer();
         

@@ -106,8 +106,14 @@
         url: '/list-all-books/',
         method: 'get',
         callback: function (req, res) {
-            var dataTemplate = {};
-            this.view.renderListBook(res, dataTemplate);
+            this.model.getAllBooks()
+            .then(_.bind(function (books) {
+                this.view.renderListBook(res, {books: books});
+            }, this))
+            .catch(_.bind(function (err) {                
+                console.dir(err);
+                this.redirectPaths(res, 'create-book');
+            }, this));
         }
     };
     
