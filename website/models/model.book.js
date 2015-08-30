@@ -38,7 +38,7 @@
     BookModel.prototype.getBookById = function (id) {
         var deferred  = Q.defer();
         
-        this.mongoModel.findById({id : id}, function (err, doc) {
+        this.mongoModel.findById({_id : id}, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
             
