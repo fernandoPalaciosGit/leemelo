@@ -20,6 +20,8 @@
     "chai": "^3.2.0",
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "^0.11.2",
+    "grunt-shell": "^1.1.2",
+    "grunt-shell-spawn": "^0.3.8",
     "mocha": "^2.2.5",
     "supertest-as-promised": "^2.0.2"
   },
