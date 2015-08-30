@@ -3,34 +3,24 @@
     
     var env = process.env.NODE_ENV || 'production',
         express = require('express'),
-        cookieParser = require('cookie-parser'),
         bodyParser = require('body-parser'),
         swig = require('swig'),
         session = require('express-session'),
-        csrf = require('csurf'),
         methodOverride = require('method-override'),
         middlewares = require('./../middlewares/admin'),
         routeList = require('./../website/controllers/router.book'),
         initExpressSecurity = function () {
-            this.expressServer.use(session(this.conf.session));
             this.expressServer.disable('x-powered-by');
             this.expressServer.use(methodOverride('X-HTTP-Method-Override'));
-            this.expressServer.use(cookieParser());
-            this.expressServer.use(csrf({ cookie: true }));
-            this.expressServer.use(function (err, req, res, next) {
-                if (err.code !== 'EBADCSRFTOKEN') { return next(err); }
-                
-                res
-                    .status(403)
-                    .send('CSRF token error, invalid csrf token.');
-            });
         },
         initExpressMiddlewares = function () {
+            this.expressServer.use(session(this.conf.session));
+            this.expressServer.use(bodyParser.json());
+            this.expressServer.use(bodyParser.urlencoded({extended: false}));
+            
             for (var middleware in middlewares) {
                 this.expressServer.use(middlewares[middleware]);
             }
-            this.expressServer.use(bodyParser.json());
-            this.expressServer.use(bodyParser.urlencoded({extended: true}));
         },
         // configurate template engine and paths
         initExpressTemplates = function () {
@@ -62,9 +52,9 @@
             this.conf = conf || {};
             this.isProductionEnv = env === 'production';
             this.expressServer = express();
+            initExpressMiddlewares.call(this);
             initExpressSecurity.call(this);
             initExpressTemplates.call(this);
-            initExpressMiddlewares.call(this);
             initExpressRouting.call(this);
         };
 
