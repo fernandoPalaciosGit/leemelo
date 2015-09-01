@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-training",
+  "name": "leemelo",
   "version": "1.0.0",
-  "description": "nodejs mvc boilerplate proyect",
+  "description": "Poyect to manage book information",
   "dependencies": {
     "body-parser": "^1.13.3",
     "clone": "^1.0.2",
