@@ -1,10 +1,10 @@
 ;(function () {
     'use strict';
-        
+
     var _ = require('lodash'),
         server = require('../../app'),
         testServer = require('supertest-as-promised')(server);
-    
+
     describe('Request /book/save', function () {
         var Test = {
                 bookTest: {
@@ -29,15 +29,15 @@
                     .expect(201)
                     .then(function (res) {
                         var headerParams = res.body;
-                        
+
                         expect(headerParams).to.have.property('book');
                         this.newBook = headerParams.book;
                     }.bind(this));
-                    // .catch(console.error.bind(console))
+                // .catch(console.error.bind(console))
             };
-            
+
         beforeEach(_createNewBook.bind(Test, null));
-        
+
         describe('[POST]', function () {
             it('Should create new book or update.', function (done) {
                 _assertBookProperties(this.newBook);
@@ -48,7 +48,7 @@
         describe('[GET]', function () {
             it('Should retrieve an existance book.', function (done) {
                 var idBook = this.newBook.id;
-                
+
                 // get The Book cerated before
                 return testServer
                     .get('/api/book/id/' + idBook)
@@ -57,7 +57,7 @@
                     .then(function (res) {
                         var headerParams = res.body,
                             book = headerParams.book;
-                        
+
                         // Assertions ti Testing Book
                         expect(headerParams).to.have.property('book');
                         _assertBookProperties(book);
@@ -65,10 +65,10 @@
                     })
                     .finally(done);
             }.bind(Test));
-            
+
             it('Should retrieve all book list', function (done) {
                 var book = _.clone(this.bookTest);
-                
+
                 book.title = 'title for assert book';
                 book.slug = 'slug for assert book';
                 _createNewBook.call(this, null)
@@ -84,11 +84,11 @@
                 .then(function (res) {
                     var books = res.body,
                         bookAssert = _.find(books, {title: 'title for assert book'});
-                    
+
                     expect(books)
                         .that.is.an('array')
                         .and.to.have.length.above(4);
-                    
+
                     expect(bookAssert)
                         .to.have.property('slug', 'slug for assert book');
                 })
@@ -99,7 +99,7 @@
         describe('[PUT]', function () {
             it('It shold update stored Book.', function (done) {
                 var idBook = this.newBook.id;
-                
+
                 // get The Book cerated before
                 return testServer
                     .get('/api/book/id/' + idBook)
@@ -108,7 +108,7 @@
                     .then(function (res) {
                         var headerParams = res.body,
                             book = headerParams.book;
-                        
+
                         book.title = 'Title book for Nerds';
                         return testServer
                             .put('/api/book/id/' + idBook)
@@ -118,7 +118,7 @@
                     .then(function (res) {
                         var headerParams = res.body,
                             book = headerParams.book;
-                        
+
                         // Assertions Testing Book
                         expect(headerParams).to.have.property('book');
                         expect(book).to.have.property('title').to.equals('Title book for Nerds');
@@ -130,8 +130,8 @@
 
         describe('[DELETE]', function () {
             it('It should delete a book', function (done) {
-                 var idBook = this.newBook.id;
-                
+                var idBook = this.newBook.id;
+
                 // get The Book cerated before
                 return testServer
                     .get('/api/book/id/' + idBook)

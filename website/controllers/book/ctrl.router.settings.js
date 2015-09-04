@@ -1,10 +1,10 @@
 ;(function () {
     'use strict';
 
-    var SettingsRouterCtrl = function (conf) {        
+    var SettingsRouterCtrl = function (conf) {
         this.conf = conf;
     };
-        
+
     /**
      * Route middleware for override common header properties.
      */
@@ -16,7 +16,7 @@
             next();
         }
     };
-    
+
     SettingsRouterCtrl.prototype.routeSessionSettings = {
         url: /\/*/,
         method: 'all',

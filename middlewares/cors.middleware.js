@@ -1,6 +1,6 @@
 ;(function () {
-   'use strict';
-    
+    'use strict';
+
     var cors = require('cors'),
         conf = require('./../server/conf'),
         whitelist = [

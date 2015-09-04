@@ -4,7 +4,7 @@
  */
 ;(function (){
     'use strict';
-    
+
     var http = require('http'),
         mongoose = require('mongoose'),
         ExpressServer = require('./../server/expressServer'),
@@ -16,7 +16,7 @@
         this.server = http.createServer(this.app.expressServer);
         this.socket = new SocketIOServer(this.server);
     };
-    
+
     /**
      * Open connection to Mongoose
      */
@@ -26,20 +26,20 @@
             .once('open', this.onOpenConnection.bind(this))
             .on('error', this.onErrorConnection.bind(this));
     };
-    
+
     /**
      * Open connection to resver request and socket clients
      */
     SlaveWorker.prototype.onOpenConnection = function () {
         var serverPort = this.config.server.port,
             msgOpenCallback = this.config.msgOpenApp.bind(this.config);
-        
+
         this.server.listen(serverPort, msgOpenCallback);
     };
-    
+
     SlaveWorker.prototype.onErrorConnection = function (err) {
         console.error('%s : %s', err.name, err.message);
     };
-    
+
     module.exports = SlaveWorker;
 }());

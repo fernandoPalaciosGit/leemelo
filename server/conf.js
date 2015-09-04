@@ -1,6 +1,6 @@
 ;(function () {
     'use strict';
-    
+
     module.exports = {
         server: null, // current server running depending on NODE_ENV
         serverDev: {
@@ -46,7 +46,7 @@
             db : 'leemelo'
         },
         getMongoPath: function () {
-            var system = this.mongoDB; 
+            var system = this.mongoDB;
             return system.protocol + system.host + ':' + system.db;
         }
     };

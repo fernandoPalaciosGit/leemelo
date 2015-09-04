@@ -1,6 +1,6 @@
 ;(function () {
     'use strict';
-    
+
     var _ = require('lodash'),
         Q = require('q'),
         BookMongoModel = require('./schema/schema.book'),
@@ -8,7 +8,7 @@
             this.conf = conf;
             this.mongoModel = BookMongoModel;
         };
-        
+
     /**
      * if exist update or save newone
      * @return {[type]} [description]
@@ -22,63 +22,63 @@
                 upsert: true, // create object if it doesn´t exist
                 'new': true // return updated document rather query document
             };
-        
+
         this.mongoModel.findOneAndUpdate(query, docBook, queryOptions, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
-            
+
             } else {
                 deferred.reject(err);
             }
         });
-        
+
         return deferred.promise;
     };
-    
+
     BookModel.prototype.getAllBooks = function () {
         var deferred = Q.defer();
-        
+
         this.mongoModel.find({}, '-description', {lean: true}, function (err, doc) {
-           if (_.isNull(err) && !_.isEmpty(doc)) {
+            if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
-            
+
             } else {
                 deferred.reject(err);
             }
         });
-        
+
         return deferred.promise;
     };
-    
+
     BookModel.prototype.getBookById = function (id) {
         var deferred  = Q.defer();
-        
+
         this.mongoModel.findById({_id : id}, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
-            
+
             } else {
                 var error = err || new Error('Not found book with id : ' + id);
                 deferred.reject(error);
-            }            
+            }
         });
         return deferred.promise;
     };
-    
+
     BookModel.prototype.getBookByIsbn = function (isbn) {
         var deferred  = Q.defer();
-        
+
         this.mongoModel.find({isbn: isbn}, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
-            
+
             } else {
                 var error = err || new Error('Not found book with isbn : ' + isbn);
                 deferred.reject(error);
-            }            
+            }
         });
         return deferred.promise;
     };
-  
+
     module.exports = BookModel;
 }());

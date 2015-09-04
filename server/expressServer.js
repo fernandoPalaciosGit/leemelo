@@ -1,6 +1,6 @@
  ;(function () {
     'use strict';
-    
+
     var env = process.env.NODE_ENV || 'production',
         express = require('express'),
         bodyParser = require('body-parser'),
@@ -17,7 +17,7 @@
             this.expressServer.use(session(this.conf.session));
             this.expressServer.use(bodyParser.json());
             this.expressServer.use(bodyParser.urlencoded({extended: false}));
-            
+
             for (var middleware in middlewares) {
                 this.expressServer.use(middlewares[middleware]);
             }
@@ -35,12 +35,12 @@
         },
         // initialize all router resources
         initExpressRouting = function () {
-            var routerCtrl, router, resources, resource; 
-            
+            var routerCtrl, router, resources, resource;
+
             for (routerCtrl in routeList) {
                 // Initialize Instance from all routeList controllers
                 router = new routeList[routerCtrl](this.conf);
-                
+
                 // For our structure, throw routeList prototype objects, initialize all our resources
                 for (resources in router.constructor.prototype) {
                     resource = router[resources];
