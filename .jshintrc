@@ -1,14 +1,14 @@
 {
-    "quotmark": "single", // only single quotes
-    "indent": 4, // tab width
+    "quotmark": "single",
+    "indent": 4,
     "multistr": true,
     "undef": true,
     "unused": true,
-    "sub": true, // supress access properties of objects by ['array notation']
+    "sub": true,
     "scripturl": true,
     "nonbsp": true,
     "latedef": true,
-    "freeze": true, // ptohibit extend/override native prototypes
+    "freeze": true,
     "evil": false,
     "nonew": true,
     "supernew": false,
@@ -21,22 +21,16 @@
     "curly": true,
     "bitwise": false,
     "expr": true,
-
-    // FLOW FUNCTIONS
-    "strict": true, // avoid use stric mode ES5
-    "maxcomplexity": 5, // cyclomatic complexity
-    "maxdepth": 3, // nested blocks
-    "maxstatements": 13, // max number of function statements per scope
+    "strict": true,
+    "maxcomplexity": 5,
+    "maxdepth": 3,
+    "maxstatements": 13,
     "maxparams": 4,
     "noarg": true,
-
-    // ENVIRONMENT
-    "esnext": false, // ES6
-    "mocha": true,
+    "esnext": false,
     "node": true,
     "browser": true,
-
-    // define readonly variables
+    "mocha": true,
     "globals": {
         "io": false,
         "expect": false

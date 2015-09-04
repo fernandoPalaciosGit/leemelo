@@ -1,28 +1,40 @@
 (function () {
     'use strict';
-    
-    var conf = require('./server/conf');
+
+    var conf = require('./server/conf'),
+        lintPaths = [
+            'Gruntfile.js',
+            'app.js',
+            'middlewares/**/*.js',
+            'server/**/*.js',
+            'workers/**/*.js',
+            'test/**/*.js',
+            'website/**/*.js'
+        ];
 
     conf.server = conf['serverDev'];
     module.exports = function (grunt) {
         // loading apckages
         grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-shell-spawn');
+        grunt.loadNpmTasks('grunt-jscs');
         // configuration packages
         grunt.initConfig({
+            jscs: {
+                files: {
+                    src: lintPaths
+                },
+                options: {
+                    fix: true,
+                    config: '.jscsrc',
+                    verbose: true
+                }
+            },
             jshint: {
                 options: {
-                    jshintrc: '.jshintrc' 
+                    jshintrc: '.jshintrc'
                 },
-                all: [
-                    'Gruntfile.js',
-                    'app.js',
-                    'middlewares/**/*.js',
-                    'server/**/*.js',
-                    'workers/**/*.js',
-                    'test/**/*.js',
-                    'website/**/*.js'
-                ]
+                all: lintPaths
             },
             shell: {
                 options: {
@@ -50,7 +62,7 @@
             }
         });
         // Console instructions
-        grunt.registerTask('lint', ['jshint']);
+        grunt.registerTask('lint', ['jshint', 'jscs']);
         grunt.registerTask('run', ['shell:runDB', 'shell:openProject', 'shell:runProject']);
     };
 }());

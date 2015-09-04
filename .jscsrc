@@ -1,0 +1,31 @@
+{
+    "requireCurlyBraces": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "try",
+        "catch"
+    ],
+    "requireOperatorBeforeLineBreak": true,
+    "maximumLineLength": {
+      "value": 150,
+      "allowComments": true,
+      "allowRegex": true
+    },
+
+    "validateIndentation": 4,
+
+    "disallowMultipleLineStrings": true,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingWhitespace": true,
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+
+    "disallowKeywordsOnNewLine": ["else"],
+
+    "requireLineFeedAtFileEnd": true,
+
+    "disallowMultipleLineBreaks": true,
+    "disallowNewlineBeforeBlockStatements": true
+}
