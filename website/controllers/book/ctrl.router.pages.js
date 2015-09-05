@@ -60,25 +60,25 @@
      * @memberof Book
      * @type {Object}
      */
-    // TODO : incorporate books API restFull
     PagesBookCtrl.prototype.routeSaveBook = {
         url: '/save-book/',
         method: 'post',
         callback: function (req, res) {
             var docBook = req.body;
 
-            this.model.saveBook(docBook)
-            .then(_.bind(function (doc) {
-                return this.model.getBookById(doc.id);
-            }, this))
-            .then(_.bind(function (doc) {
-                // redirect to isbn stored book, or to form for add new one.
-                this.redirectPaths(res, 'isbn-book', doc.toJSON().isbn);
-            }, this))
-            .catch(_.bind(function (err) {
-                console.dir(err);
-                this.redirectPaths(res, 'create-book');
-            }, this));
+            this.model
+                .saveBook(docBook)
+                .then(_.bind(function (doc) {
+                    return this.model.getBookById(doc.id);
+                }, this))
+                .then(_.bind(function (doc) {
+                    // redirect to isbn stored book, or to form for add new one.
+                    this.redirectPaths(res, 'isbn-book', doc.toJSON().isbn);
+                }, this))
+                .catch(_.bind(function (err) {
+                    console.dir(err);
+                    this.redirectPaths(res, 'create-book');
+                }, this));
         }
     };
 
@@ -86,14 +86,15 @@
         url: '/isbn-book/:isbn',
         method: 'get',
         callback: function (req, res) {
-            this.model.getBookByIsbn(req.params.isbn)
-            .then(_.bind(function (doc) {
-                this.view.renderGetBook(res, {book: doc[0]});
-            }, this))
-            .catch(_.bind(function (err){
-                console.dir(err);
-                this.redirectPaths(res, 'create-book');
-            }, this));
+            this.model
+                .getBookByIsbn(req.params.isbn)
+                .then(_.bind(function (doc) {
+                    this.view.renderGetBook(res, {book: doc[0]});
+                }, this))
+                .catch(_.bind(function (err){
+                    console.dir(err);
+                    this.redirectPaths(res, 'create-book');
+                }, this));
         }
     };
 
@@ -106,14 +107,15 @@
         url: '/list-all-books/',
         method: 'get',
         callback: function (req, res) {
-            this.model.getAllBooks()
-            .then(_.bind(function (books) {
-                this.view.renderListBook(res, {books: books});
-            }, this))
-            .catch(_.bind(function (err) {
-                console.dir(err);
-                this.redirectPaths(res, 'create-book');
-            }, this));
+            this.model
+                .getAllBooks()
+                .then(_.bind(function (books) {
+                    this.view.renderListBook(res, {books: books});
+                }, this))
+                .catch(_.bind(function (err) {
+                    console.dir(err);
+                    this.redirectPaths(res, 'create-book');
+                }, this));
         }
     };
 
@@ -134,7 +136,7 @@
         url: '/logout/',
         method: 'get',
         callback: function (req, res) {
-            req.session.destroy(function(err) {
+            req.session.destroy(function (err) {
                 if (!_.isUndefined(err)) {
                     this.redirectPaths(res, 'settings');
 

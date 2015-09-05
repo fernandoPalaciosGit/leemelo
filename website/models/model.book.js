@@ -6,7 +6,7 @@
         BookMongoModel = require('./schema/schema.book'),
         BookModel = function (conf) {
             this.conf = conf;
-            this.mongoModel = BookMongoModel;
+            this.book = new BookMongoModel();
         };
 
     /**
@@ -23,7 +23,7 @@
                 'new': true // return updated document rather query document
             };
 
-        this.mongoModel.findOneAndUpdate(query, docBook, queryOptions, function (err, doc) {
+        this.book.findOneAndUpdate(query, docBook, queryOptions, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
 
@@ -38,7 +38,7 @@
     BookModel.prototype.getAllBooks = function () {
         var deferred = Q.defer();
 
-        this.mongoModel.find({}, '-description', {lean: true}, function (err, doc) {
+        this.book.find({}, '-description', {lean: true}, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
 
@@ -53,7 +53,7 @@
     BookModel.prototype.getBookById = function (id) {
         var deferred  = Q.defer();
 
-        this.mongoModel.findById({_id : id}, function (err, doc) {
+        this.book.findById({_id : id}, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
 
@@ -68,7 +68,7 @@
     BookModel.prototype.getBookByIsbn = function (isbn) {
         var deferred  = Q.defer();
 
-        this.mongoModel.find({isbn: isbn}, function (err, doc) {
+        this.book.find({isbn: isbn}, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
 
