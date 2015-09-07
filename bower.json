@@ -1,0 +1,25 @@
+{
+  "name": "leemelo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/fernandoPalaciosGit/leemelo",
+  "authors": [
+    "fernandoPalaciosGit <fernandopalacioslandi@gmail.com>"
+  ],
+  "description": "Poject to manage book information",
+  "main": "app.js",
+  "keywords": [
+    "book",
+    "library"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "~1.0.4"
+  }
+}

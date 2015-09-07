@@ -1,12 +1,15 @@
-;(function () {
+/**
+ * Middleware for Enable Cross side origin server
+ * @scope ExpressServer @see //server/expressServer.js
+ */
+module.exports = function () {
     'use strict';
 
     var cors = require('cors'),
-        conf = require('./../server/conf'),
         whitelist = [
-            conf.getserverPath('serverDev'),
-            conf.getserverPath('serverProd'),
-            conf.getserverPath('serverTest')
+            this.conf.getserverPath('serverDev'),
+            this.conf.getserverPath('serverProd'),
+            this.conf.getserverPath('serverTest')
         ],
         corsOptions = {
             // @var origin {string} path from client request
@@ -16,5 +19,5 @@
             }
         };
 
-    module.exports = cors(corsOptions);
-}());
+    this.expressServer.use(cors(corsOptions));
+};

@@ -1,7 +1,8 @@
 // list of middlewares that express use
+
 module.exports = {
+    metaHeader: require('./metaHeader.middleware'),
+    resources: require('./resources.middleware'),
     cors: require('./cors.middleware'),
-    staticFiles: require('./static.middleware'),
-    favicon: require('./favicon.middleware'),
     locals: require('./locals.middleware')
 };

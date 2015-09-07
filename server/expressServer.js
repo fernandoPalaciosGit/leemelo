@@ -3,9 +3,7 @@
 
     var env = process.env.NODE_ENV || 'production',
         express = require('express'),
-        bodyParser = require('body-parser'),
         swig = require('swig'),
-        session = require('express-session'),
         methodOverride = require('method-override'),
         middlewares = require('./../middlewares/admin'),
         routeList = require('./../website/controllers/router.book'),
@@ -14,12 +12,8 @@
             this.expressServer.use(methodOverride('X-HTTP-Method-Override'));
         },
         initExpressMiddlewares = function () {
-            this.expressServer.use(session(this.conf.session));
-            this.expressServer.use(bodyParser.json());
-            this.expressServer.use(bodyParser.urlencoded({extended: false}));
-
             for (var middleware in middlewares) {
-                this.expressServer.use(middlewares[middleware]);
+                middlewares[middleware].call(this);
             }
         },
         // configurate template engine and paths

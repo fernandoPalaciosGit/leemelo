@@ -1,7 +1,7 @@
 {
   "name": "leemelo",
   "version": "1.0.0",
-  "description": "Poyect to manage book information",
+  "description": "Poject to manage book information",
   "dependencies": {
     "body-parser": "^1.13.3",
     "clone": "^1.0.2",
