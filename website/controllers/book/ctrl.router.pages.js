@@ -18,7 +18,7 @@
     PagesBookCtrl = function (conf) {
         this.conf = conf;
         this.view = new BookView();
-        this.model = new BookModel();
+        this.model = new BookModel(conf);
         this.redirectPaths = function (response, pathname, restParam) {
             var url = [
                 this.conf.getserverPath(),

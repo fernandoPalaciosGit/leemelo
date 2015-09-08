@@ -47,7 +47,7 @@
         },
         getMongoPath: function () {
             var system = this.mongoDB;
-            return system.protocol + system.host + ':' + system.db;
+            return system.protocol + system.host + '/' + system.db;
         }
     };
 }());

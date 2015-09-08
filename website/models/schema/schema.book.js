@@ -15,7 +15,7 @@
             isbn: {type: String, require: true, unique: true},
             language: {type: String, require: true},
             pages: {type: Number},
-            summary: {type: String},
+            description: {type: String},
             update_at: {type: Date},
             // references
             comments: [{

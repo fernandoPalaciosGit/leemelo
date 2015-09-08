@@ -6,7 +6,7 @@
         BookMongoModel = require('./schema/schema.book'),
         BookModel = function (conf) {
             this.conf = conf;
-            this.book = new BookMongoModel();
+            this.book = BookMongoModel;
         };
 
     /**
