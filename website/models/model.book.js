@@ -36,16 +36,16 @@
     };
 
     BookModel.prototype.getAllBooks = function () {
-        var deferred = Q.defer();
+        var deferred = Q.defer(),
+            findAllBooks = this.book
+                .find({})
+                .select('-description')
+                .lean(true)
+                .exec();
 
-        this.book.find({}, '-description', {lean: true}, function (err, doc) {
-            if (_.isNull(err) && !_.isEmpty(doc)) {
-                deferred.resolve(doc);
-
-            } else {
-                deferred.reject(err);
-            }
-        });
+        Q.all(findAllBooks)
+            .then(deferred.resolve)
+            .fail(deferred.reject);
 
         return deferred.promise;
     };

@@ -110,7 +110,13 @@
             this.model
                 .getAllBooks()
                 .then(_.bind(function (books) {
-                    this.view.renderListBook(res, {books: books});
+
+                    if (_.size(books) > 0) {
+                        this.view.renderListBook(res, {books: books});
+
+                    } else {
+                        this.redirectPaths(res, 'create-book');
+                    }
                 }, this))
                 .catch(_.bind(function (err) {
                     console.dir(err);
@@ -123,6 +129,7 @@
         url: /\/[login|access]?/,
         method: 'get',
         callback: function (req, res) {
+
             if (!_.isUndefined(req.session.sessionlastAccess)) {
                 this.redirectPaths(res, 'create-book');
 
@@ -137,6 +144,7 @@
         method: 'get',
         callback: function (req, res) {
             req.session.destroy(function (err) {
+
                 if (!_.isUndefined(err)) {
                     this.redirectPaths(res, 'settings');
 

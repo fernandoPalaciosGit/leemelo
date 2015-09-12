@@ -3,9 +3,8 @@
 {% block wrapper-tmpl %}
 <h2>List of Books</h2>
 {% for book in books %}
-    <li data-id="{{ book.id }}"
+    <li data-id="{{ book._id.toString() }}"
         data-isbn="{{ book.isbn }}">{{ book.title }}</li>
 {% endfor %}
 
 {% endblock %}
-    
