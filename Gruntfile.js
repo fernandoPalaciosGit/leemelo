@@ -2,6 +2,7 @@
     'use strict';
 
     var conf = require('./server/conf'),
+        _ = require('lodash'),
         lintPaths = [
             'Gruntfile.js',
             'app.js',
@@ -16,8 +17,8 @@
     module.exports = function (grunt) {
         // loading apckages
         require('time-grunt')(grunt);
-        grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-shell-spawn');
+        grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-jscs');
 
         // configuration packages
@@ -41,24 +42,24 @@
             shell: {
                 options: {
                     async: false,
-                    stdout: true,
-                    stderr: true,
+                    stdout: console.info,
+                    stderr: console.error,
                     failOnError: true,
                     execOptions: {
-                        maxBuffer: Infinity
+                        maxBuffer: Infinity,
+                        cwd: '.' // run commands in actual directory
                     }
                 },
                 runMongo: {
-                    command: function (option) {
-                        !option && grunt.warn('[OPTIONAL] > grunt server:path/db/mongo');
-                        return 'mongod --dbpath ' + (option|| 'C:/data/db/');
+                    command: function (path, ip) {
+                        var mongoPort = process.env.MONGO_PORT || ip || 27017,
+                            mongoPath = path || 'C:/data/db/';
+
+                        !_.isUndefined(path) && grunt.warn('[OPTIONAL] > grunt server:path/db/mongo:ip');
+                        return 'mongod --port ' + mongoPort + ' --dbpath ' + mongoPath;
                     },
                     options: {
-                        async: true,
-                        callback: function(exitCode, stdOutStr, stdErrStr, next) {
-                            grunt.task.run(['shell:runServer', 'shell:openProject']);
-                            next();
-                        }
+                        async: true
                     }
                 },
                 runServer: {
@@ -71,6 +72,6 @@
         });
         // Console instructions
         grunt.registerTask('lint', ['jshint', 'jscs']);
-        grunt.registerTask('server', ['lint', 'shell:runMongo']);
+        grunt.registerTask('server', ['jshint', 'shell:runMongo', 'shell:openProject', 'shell:runServer']);
     };
 }());
