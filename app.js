@@ -2,17 +2,19 @@
     'use strict';
 
     var _ = require('lodash'),
+        mongoose = require('mongoose'),
         cluster = require('cluster'),
         conf = require('./server/conf'),
         APP = {
             env : process.env.NODE_ENV,
             worker: null,
             masterWorker: null,
-            finishProcess: function (options, err) {
-                options.event !== 'exit' && console.error('Exit app process by %s event', options.event);
-                !!err && console.error(err);
+            finishProcess: function (errOptions) {
+                console.error(errOptions.event);
                 process.env['NODE_ENV'] = '';
-                process.exit();
+                if (mongoose.connection.readyState !== 0 && errOptions.event === 'SIGINT') {
+                    mongoose.connection.close(process.exit);
+                }
             },
             /**
              * Manage Master Cluster, Open and realive slaves clusters
@@ -66,9 +68,9 @@
         };
 
     // retun NODE_ENV default settings
-    process.on('exit', APP.finishProcess.bind(APP, {event: 'exit'}));
-    process.on('SIGINT', APP.finishProcess.bind(APP, {event: 'SIGINT'}));
-    process.on('uncaughtException', APP.finishProcess.bind(APP, {event: 'uncaughtException'}));
+    process.on('exit', _.bind(APP.finishProcess, APP, {event: 'exit'}));
+    process.on('SIGINT', _.bind(APP.finishProcess, APP, {event: 'SIGINT'}));
+    process.on('uncaughtException', _.bind(APP.finishProcess, APP, {event: 'uncaughtException'}));
 
     // $set "NODE_ENV=testing" && mocha app
     if (APP.env === 'testing') {
