@@ -15,9 +15,11 @@
     conf.server = conf['serverDev'];
     module.exports = function (grunt) {
         // loading apckages
+        require('time-grunt')(grunt);
         grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-shell-spawn');
         grunt.loadNpmTasks('grunt-jscs');
+
         // configuration packages
         grunt.initConfig({
             jscs: {
@@ -38,6 +40,7 @@
             },
             shell: {
                 options: {
+                    async: false,
                     stdout: true,
                     stderr: true,
                     failOnError: true,
@@ -45,15 +48,20 @@
                         maxBuffer: Infinity
                     }
                 },
-                runDB: {
-                    command: [
-                        'C:', 'mongod'
-                    ].join('&&'),
+                runMongo: {
+                    command: function (option) {
+                        !option && grunt.warn('[OPTIONAL] > grunt server:path/db/mongo');
+                        return 'mongod --dbpath ' + (option|| 'C:/data/db/');
+                    },
                     options: {
-                        async: true
+                        async: true,
+                        callback: function(exitCode, stdOutStr, stdErrStr, next) {
+                            grunt.task.run(['shell:runServer', 'shell:openProject']);
+                            next();
+                        }
                     }
                 },
-                runProject: {
+                runServer: {
                     command: 'npm start'
                 },
                 openProject: {
@@ -63,6 +71,6 @@
         });
         // Console instructions
         grunt.registerTask('lint', ['jshint', 'jscs']);
-        grunt.registerTask('run', ['shell:runDB', 'shell:openProject', 'shell:runProject']);
+        grunt.registerTask('server', ['lint', 'shell:runMongo']);
     };
 }());
