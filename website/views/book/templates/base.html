@@ -1,4 +1,20 @@
-{% include './components/header.html' %}
-{% include './components/navigation.html' %}
-{% block wrapper-tmpl %} {% endblock %}
-{% include './components/footer.html' %}
+<!DOCTYPE html>
+<html lang="en">
+{% include './components/head.html' %}
+<body>
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    {% include './components/head.html' %}
+    {% include './components/navigation.html' %}
+
+    <main class="mdl-layout__content">
+        {% block wrapper-tmpl %} {% endblock %}
+    </main>
+
+    {% include './components/footer.html' %}
+</div>
+</body>
+</html>
+
+
+
+
