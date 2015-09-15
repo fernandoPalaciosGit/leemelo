@@ -10,5 +10,5 @@ module.exports = function () {
 
     this.expressServer.use(session(this.conf.session));
     this.expressServer.use(bodyParser.json());
-    this.expressServer.use(bodyParser.urlencoded({extended: false}));
+    this.expressServer.use(bodyParser.urlencoded({ extended: false }));
 };

@@ -11,10 +11,10 @@
             next();
         },
         userProperties = {
-            name: {type: String, require: true, unique: true},
-            birthdate: {type: Date},
-            website: {type: String},
-            update_at: {type: Date}
+            name: { type: String, require: true, unique: true },
+            birthdate: { type: Date },
+            website: { type: String },
+            update_at: { type: Date }
         },
         userSchema = new mongoose.Schema(userProperties);
 

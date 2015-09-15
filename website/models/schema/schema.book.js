@@ -11,22 +11,22 @@
             next();
         },
         bookProperties = {
-            title: {type: String, require: true, unique: true},
-            isbn: {type: String, require: true, unique: true},
-            language: {type: String, require: true},
-            pages: {type: Number},
-            description: {type: String},
-            update_at: {type: Date},
+            title: { type: String, require: true, unique: true },
+            isbn: { type: String, require: true, unique: true },
+            language: { type: String, require: true },
+            pages: { type: Number },
+            description: { type: String },
+            update_at: { type: Date },
             // references
             comments: [{
-                note: {type: String},
+                note: { type: String },
                 postedBy: {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'User'
                 }
             }],
-            author: {type: mongoose.Schema.Types.ObjectId},
-            category: [{type: mongoose.Schema.Types.ObjectId, max: 2}]
+            author: { type: mongoose.Schema.Types.ObjectId },
+            category: [{ type: mongoose.Schema.Types.ObjectId, max: 2 }]
         },
         bookSchema = new mongoose.Schema(bookProperties);
 

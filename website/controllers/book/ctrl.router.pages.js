@@ -89,9 +89,9 @@
             this.model
                 .getBookByIsbn(req.params.isbn)
                 .then(_.bind(function (doc) {
-                    this.view.renderGetBook(res, {book: doc[0]});
+                    this.view.renderGetBook(res, { book: doc[0] });
                 }, this))
-                .catch(_.bind(function (err){
+                .catch(_.bind(function (err) {
                     console.dir(err);
                     this.redirectPaths(res, 'create-book');
                 }, this));
@@ -112,7 +112,7 @@
                 .then(_.bind(function (books) {
 
                     if (_.size(books) > 0) {
-                        this.view.renderListBook(res, {books: books});
+                        this.view.renderListBook(res, { books: books });
 
                     } else {
                         this.redirectPaths(res, 'create-book');

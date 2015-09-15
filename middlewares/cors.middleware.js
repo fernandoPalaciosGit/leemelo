@@ -13,7 +13,7 @@ module.exports = function () {
         ],
         corsOptions = {
             // @var origin {string} path from client request
-            origin: function(origin, callback){
+            origin: function (origin, callback) {
                 var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
                 callback(null, originIsWhitelisted);
             }

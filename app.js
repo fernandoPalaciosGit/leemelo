@@ -34,7 +34,7 @@
                 /**
                  * Once the worker died, reactivate new one, then we got full working cpus
                  */
-                cluster.on('exit', function (worker){
+                cluster.on('exit', function (worker) {
                     this.masterWorker.onWorkerExit(worker);
                 }.bind(this));
             },
@@ -68,9 +68,9 @@
         };
 
     // retun NODE_ENV default settings
-    process.on('exit', _.bind(APP.finishProcess, APP, {event: 'exit'}));
-    process.on('SIGINT', _.bind(APP.finishProcess, APP, {event: 'SIGINT'}));
-    process.on('uncaughtException', _.bind(APP.finishProcess, APP, {event: 'uncaughtException'}));
+    process.on('exit', _.bind(APP.finishProcess, APP, { event: 'exit' }));
+    process.on('SIGINT', _.bind(APP.finishProcess, APP, { event: 'SIGINT' }));
+    process.on('uncaughtException', _.bind(APP.finishProcess, APP, { event: 'uncaughtException' }));
 
     // $set "NODE_ENV=testing" && mocha app
     if (APP.env === 'testing') {

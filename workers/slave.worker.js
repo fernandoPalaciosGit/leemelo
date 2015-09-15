@@ -2,20 +2,20 @@
  * PROCESSING WORKER
  * Located server initialization in the slave worker
  */
-;(function (){
+;(function () {
     'use strict';
 
     var http = require('http'),
         mongoose = require('mongoose'),
         ExpressServer = require('./../server/expressServer'),
-        SocketIOServer = require('./../server/socketIOServer');
+        SocketIOServer = require('./../server/socketIOServer'),
 
-    var SlaveWorker = function (conf) {
-        this.config = conf;
-        this.app = new ExpressServer(this.config);
-        this.server = http.createServer(this.app.expressServer);
-        this.socket = new SocketIOServer(this.server);
-    };
+        SlaveWorker = function (conf) {
+            this.config = conf;
+            this.app = new ExpressServer(this.config);
+            this.server = http.createServer(this.app.expressServer);
+            this.socket = new SocketIOServer(this.server);
+        };
 
     /**
      * Open connection to Mongoose

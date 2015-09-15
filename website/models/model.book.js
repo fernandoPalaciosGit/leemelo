@@ -53,7 +53,7 @@
     BookModel.prototype.getBookById = function (id) {
         var deferred  = Q.defer();
 
-        this.book.findById({_id : id}, function (err, doc) {
+        this.book.findById({ _id : id }, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
 
@@ -68,7 +68,7 @@
     BookModel.prototype.getBookByIsbn = function (isbn) {
         var deferred  = Q.defer();
 
-        this.book.find({isbn: isbn}, function (err, doc) {
+        this.book.find({ isbn: isbn }, function (err, doc) {
             if (_.isNull(err) && !_.isEmpty(doc)) {
                 deferred.resolve(doc);
 

@@ -2,18 +2,18 @@
     'use strict';
 
     var _ = require('lodash'),
-        staticLibrary = {};
+        staticLibrary = {},
 
-    /**
-     * @class RESTFULL API for Books Library
-     * @lends Book.prototype properties from Book API
-     * @property {string} url Path route from express routing (http://localhost:3000/[url])
-     * @property {string} method expres routing interfaces
-     * @property {function} callback middleware handlers for expres routing
-     */
-    var ApiBookCtrl = function (conf) {
-        this.conf = conf;
-    };
+        /**
+         * @class RESTFULL API for Books Library
+         * @lends Book.prototype properties from Book API
+         * @property {string} url Path route from express routing (http://localhost:3000/[url])
+         * @property {string} method expres routing interfaces
+         * @property {function} callback middleware handlers for expres routing
+         */
+        ApiBookCtrl = function (conf) {
+            this.conf = conf;
+        };
 
     ApiBookCtrl.prototype.routeApiBookSave = {
         url: '/api/book/save/',
@@ -25,7 +25,7 @@
             staticLibrary[bookReq.id] = bookReq;
             res
                 .status(201)
-                .send({book: bookReq});
+                .send({ book: bookReq });
         }
     };
 
@@ -36,11 +36,11 @@
             var bookId = req.params.id,
                 bookReq = staticLibrary[bookId],
                 resApi = _.isUndefined(bookReq) ?
-                        {status: 404, bookRes: {}} : {status: 200, bookRes: bookReq};
+                        { status: 404, bookRes: {} } : { status: 200, bookRes: bookReq };
 
             res
                 .status(resApi.status)
-                .send({book: resApi.bookRes});
+                .send({ book: resApi.bookRes });
         }
     };
 
@@ -55,7 +55,7 @@
             staticLibrary[bookId] = bookReq;
             res
                 .status(200)
-                .send({book: staticLibrary[bookId]});
+                .send({ book: staticLibrary[bookId] });
         }
     };
 

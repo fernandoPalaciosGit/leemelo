@@ -28,7 +28,6 @@
                     src: lintPaths
                 },
                 options: {
-                    fix: true,
                     config: '.jscsrc',
                     verbose: true
                 }

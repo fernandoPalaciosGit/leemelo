@@ -2,7 +2,7 @@
  * MANAGER WORKER
  * create a slaveWorker or reInitialize slaveWorker (if dies or crashed the app)
  */
-;(function (){
+;(function () {
     'use strict';
 
     var MasterWorker = function (cluster) {

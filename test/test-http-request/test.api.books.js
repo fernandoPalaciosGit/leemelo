@@ -25,7 +25,7 @@
                 return testServer
                     .post('/api/book/save/')
                     .set('Accept', 'application/json')
-                    .send({book: newbook})
+                    .send({ book: newbook })
                     .expect(201)
                     .then(function (res) {
                         var headerParams = res.body;
@@ -83,7 +83,7 @@
                 })
                 .then(function (res) {
                     var books = res.body,
-                        bookAssert = _.find(books, {title: 'title for assert book'});
+                        bookAssert = _.find(books, { title: 'title for assert book' });
 
                     expect(books)
                         .that.is.an('array')
@@ -112,7 +112,7 @@
                         book.title = 'Title book for Nerds';
                         return testServer
                             .put('/api/book/id/' + idBook)
-                            .send({book: book})
+                            .send({ book: book })
                             .expect(200);
                     })
                     .then(function (res) {
