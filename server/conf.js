@@ -3,6 +3,7 @@
 
     module.exports = {
         server: null, // current server running depending on NODE_ENV
+        nodeRootPath: process.env.NODE_ROOT_PATH,
         serverDev: {
             protocol: 'http://',
             host: 'localhost',

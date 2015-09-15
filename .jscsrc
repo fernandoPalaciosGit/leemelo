@@ -12,7 +12,7 @@
     "requireSpaceAfterBinaryOperators": [ "+", "-", "/", "*", "=", "==", "===", "!=", "!==" ],
     "requireOperatorBeforeLineBreak": true,
     "maximumLineLength": {
-      "value": 150,
+      "value": 130,
       "allowComments": true,
       "allowRegex": true
     },

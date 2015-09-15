@@ -1,76 +1,22 @@
-(function () {
+module.exports = function (grunt) {
     'use strict';
 
-    var conf = require('./server/conf'),
-        _ = require('lodash'),
-        lintPaths = [
-            'Gruntfile.js',
-            'app.js',
-            'middlewares/**/*.js',
-            'server/**/*.js',
-            'workers/**/*.js',
-            'test/**/*.js',
-            'website/**/*.js'
-        ];
+    var gruntConfig = require('./grunt/config')(grunt),
+        timeGrunt = require('time-grunt');
 
-    conf.server = conf['serverDev'];
-    module.exports = function (grunt) {
-        // loading apckages
-        require('time-grunt')(grunt);
-        grunt.loadNpmTasks('grunt-shell-spawn');
-        grunt.loadNpmTasks('grunt-contrib-jshint');
-        grunt.loadNpmTasks('grunt-jscs');
+    // loading apckages
+    timeGrunt(grunt);
+    grunt.loadNpmTasks('grunt-shell-spawn');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-jscs');
+    grunt.loadNpmTasks('grunt-githooks');
 
-        // configuration packages
-        grunt.initConfig({
-            jscs: {
-                files: {
-                    src: lintPaths
-                },
-                options: {
-                    config: '.jscsrc',
-                    verbose: true
-                }
-            },
-            jshint: {
-                options: {
-                    jshintrc: '.jshintrc'
-                },
-                all: lintPaths
-            },
-            shell: {
-                options: {
-                    async: false,
-                    stdout: console.info,
-                    stderr: console.error,
-                    failOnError: true,
-                    execOptions: {
-                        maxBuffer: Infinity,
-                        cwd: '.' // run commands in actual directory
-                    }
-                },
-                runMongo: {
-                    command: function (path, ip) {
-                        var mongoPort = process.env.MONGO_PORT || ip || 27017,
-                            mongoPath = path || 'C:/data/db/';
+    // configuration packages
+    grunt.initConfig(gruntConfig);
 
-                        !_.isUndefined(path) && grunt.warn('[OPTIONAL] > grunt server:path/db/mongo:ip');
-                        return 'mongod --port ' + mongoPort + ' --dbpath ' + mongoPath;
-                    },
-                    options: {
-                        async: true
-                    }
-                },
-                runServer: {
-                    command: 'npm start'
-                },
-                openProject: {
-                    command: 'start chrome \"' + conf.getserverPath() + '/landing' + '\"'
-                }
-            }
-        });
-        // Console instructions
-        grunt.registerTask('lint', ['jshint', 'jscs']);
-        grunt.registerTask('server', ['jshint', 'shell:runMongo', 'shell:openProject', 'shell:runServer']);
-    };
-}());
+    // Console instructions
+    grunt.registerTask('lint', 'For git-hooks proyect validation.',
+            ['jshint', 'jscs']);
+    grunt.registerTask('server', 'For proyect deployment.',
+            ['githooks', 'shell:runMongo', 'shell:openProject', 'shell:runServer']);
+};
