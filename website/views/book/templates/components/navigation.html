@@ -1,7 +1,7 @@
 <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
+    <span class="mdl-layout-title">{{ cms.navigation.maintitle }}</span>
     <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="{{ server }}/list-all-books/">My Library</a>
-        <a class="mdl-navigation__link" href="{{ server }}/create-book/">Create</a>
+        <a class="mdl-navigation__link" href="{{ preference.server }}/list-all-books/">{{ cms.navigation.linkmylibrary }}</a>
+        <a class="mdl-navigation__link" href="{{ preference.server }}/create-book/">{{ cms.navigation.linkCreateBook }}</a>
     </nav>
 </div>
