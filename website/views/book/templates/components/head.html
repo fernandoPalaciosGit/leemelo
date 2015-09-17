@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ cms.head.description }}"/>
-    <title>{{ cms.head.seotitle }}</title>
-
+    <meta name="description" content="{{ common.head.description }}"/>
+    <title>{{ common.head.seotitle }}</title>
     <link rel="stylesheet" href="{{ cssPath['material-design-lite'] }}"/>
     <link rel="stylesheet" href="{{ cssPath['googleapis-material-icons'] }}"/>
-    <link rel="stylesheet" href="{{ cssPath['common-style'] }}"/>
-
+    <link rel="stylesheet" href="{{ desktop.baseStyle }}"/>
+    <link rel="stylesheet" href="{{ common.widgetStyle }}"/>
     <script src="{{ jsPath['npm-socketio'] }}"></script>
     <script src="{{ jsPath['material-design-lite'] }}"></script>
 </head>

@@ -1,4 +1,4 @@
-{% extends './../base.html' %}
+{% extends './../wrapper/page.html' %}
 
 {% block wrapper-tmpl %}
 <form action="/save-book" method="post">
@@ -13,7 +13,7 @@
     <p>
         <label for="description">Description: </label>
         <input id="description" type="text" name="description">
-    </p>    
+    </p>
     <p><input type="submit" value="submit"></p>
 </form>
 {% endblock %}

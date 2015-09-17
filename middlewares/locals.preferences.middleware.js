@@ -8,8 +8,7 @@ module.exports = function () {
         this.path = {
             css: {
                 'material-design-lite': '/bower_components/material-design-lite/material.min.css',
-                'googleapis-material-icons': 'https://fonts.googleapis.com/icon?family=Material+Icons',
-                'common-style': 'css/common.css'
+                'googleapis-material-icons': 'https://fonts.googleapis.com/icon?family=Material+Icons'
             },
             js: {
                 'material-design-lite': '/bower_components/material-design-lite/material.min.js',
@@ -20,7 +19,7 @@ module.exports = function () {
 
     var LocalServerPreferences = function (serverpath) {
         this.environment = JSON.stringify(process.env);
-        this.server = serverpath;
+        this.serverPath = serverpath;
     };
 
     /**
@@ -28,7 +27,7 @@ module.exports = function () {
      * @property this.path.css all css path shared between views
      * @property this.path.js all js path shared between viewa
      * @property this.environment system environment paths
-     * @property this.server root local server path
+     * @property this.serverPath root local server path
      */
     var LocalPreferences = function (req, res, next) {
         var serverpath = 'http://' + req.headers.host,

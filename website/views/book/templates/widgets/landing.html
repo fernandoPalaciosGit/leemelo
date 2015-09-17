@@ -1,5 +1,17 @@
-{% extends './../base.html' %}
+{% extends './../wrappers/landing.html' %}
 
-{% block wrapper-tmpl %}
-    <h1>{{ cms.landing.mainpagetitle }}</h1>
+{% block title %}
+<div class="lee-landing__main-title">
+    <h1 class="mdl-color-text--white">{{ landing.cms.mainpagetitle }}</h1>
+</div>
+{% endblock %}
+
+{% block action-button %}
+<div class="lee-landing__action-access">
+    <a href="{{ preference.serverPath }}/list-all-books">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            {{ landing.cms.actionaccess }}
+        </button>
+    </a>
+</div>
 {% endblock %}
