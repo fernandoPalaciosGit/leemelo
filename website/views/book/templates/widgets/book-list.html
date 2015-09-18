@@ -1,10 +1,32 @@
-{% extends './../wrapper.page.html' %}
+{% extends './../wrappers/page.html' %}
+{% set cssPath = preference.path.css; %}
+{% set jsPath = preference.path.js; %}
 
-{% block wrapper-tmpl %}
-<h2>List of Books</h2>
-{% for book in books %}
-    <li data-id="{{ book._id.toString() }}"
-        data-isbn="{{ book.isbn }}">{{ book.title }}</li>
-{% endfor %}
-
+{% block header-styles %}
+<link rel="stylesheet" href="{{ cssPath['material-design-lite'] }}"/>
+<link rel="stylesheet" href="{{ desktop.baseStyle }}"/>
+<link rel="stylesheet" href="{{ common.widgetStyle }}"/>
 {% endblock %}
+
+{% block header-scripts %}
+<script src="{{ jsPath['material-design-lite'] }}"></script>
+{% endblock %}
+
+{% block title %}
+<div class="lee-view-widget__main-title">
+    <h1 class="mdl-color-text--black">{{ booklist.cms.mainpagetitle }}</h1>
+</div>
+{% endblock %}
+
+{% block main-section %}
+<main class="mdl-grid lee-view-widget--desktop-size">
+    <ul class="lee-booklist-widget--list-all">
+        {% for book in books %}
+        <li data-id="{{ book._id.toString() }}"
+            data-isbn="{{ book.isbn }}">{{ book.title }}</li>
+        {% endfor %}
+    </ul>
+</main>
+{% endblock %}
+
+{% block footer-scripts %} {% endblock %}

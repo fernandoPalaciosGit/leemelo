@@ -1,9 +1,0 @@
-{% set desktopNav = desktop.navigation.cms; %}
-{% set serverPath = preference.serverPath; %}
-<div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">{{ desktopNav.maintitle }}</span>
-    <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="{{ serverPath }}/list-all-books">{{ desktopNav.linkmylibrary }}</a>
-        <a class="mdl-navigation__link" href="{{ serverPath }}/create-booky">{{ desktopNav.linkCreateBook }}</a>
-    </nav>
-</div>

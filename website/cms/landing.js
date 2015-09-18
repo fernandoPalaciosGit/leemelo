@@ -1,17 +1,19 @@
-/*keys for only landing page*/
+    /*keys for only landing page*/
 var landing = {
         cms: {
-            actionaccess: 'Enter our page',
-            navigationtitle: 'Lee te lo',
+            actionaccess: 'Hecha un visazo',
             mainpagetitle: 'Lee cuando quieras, donde quieras.'
         }
     },
     /*Keys for share between layers, but different values*/
     common = {
-        widgetStyle: 'css/landing.css',
+        widgetStyle: '/css/landing.css',
+        navigation: {
+            title: 'Leemelo'
+        },
         head: {
-            description: 'interaction in real time with your books stored into your account platform.',
-            seotitle: 'Leemelo: store and read books'
+            description: 'Tus libros almacenados para poder compartirlos y leerlos donde y cuando quieras.',
+            seotitle: 'Leemelo: comparte y lee libros'
         },
         footer: {
             maintitle: 'Leemelo',

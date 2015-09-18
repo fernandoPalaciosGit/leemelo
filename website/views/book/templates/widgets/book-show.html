@@ -1,12 +1,37 @@
-{% extends './../wrapper.page.html' %}
+{% extends './../wrappers/page.html' %}
+{% set cssPath = preference.path.css; %}
+{% set jsPath = preference.path.js; %}
+{% set labelList = bookshow.cms.labellist; %}
 
-{% block wrapper-tmpl %}
-<ul>
-    <li><small>ISBN {{ book.isbn }}</small></li>
-    <li><strong>title</strong> : {{ book.title }}</li>
-    <li><strong>description</strong> : {{ book.description }}</li>
-</ul>
-{% include './../../scripts/factories/globalConfig.html' %}
-{% include './../../scripts/prototypes/socketIo.html' %}
-{% include './../../scripts/widgets/bookShow.html' %}
+{% block header-styles %}
+<link rel="stylesheet" href="{{ cssPath['material-design-lite'] }}"/>
+<link rel="stylesheet" href="{{ cssPath['googleapis-material-icons'] }}"/>
+<link rel="stylesheet" href="{{ desktop.baseStyle }}"/>
+<link rel="stylesheet" href="{{ common.widgetStyle }}"/>
+{% endblock %}
+
+{% block header-scripts %}
+<script src="{{ jsPath['npm-socketio'] }}"></script>
+<script src="{{ jsPath['material-design-lite'] }}"></script>
+{% endblock %}
+
+{% block title %}
+<div class="lee-view-widget__main-title">
+    <h3 class="mdl-color-text--black">{{ book.title }}</h3>
+</div>
+{% endblock %}
+
+{% block main-section %}
+<main class="mdl-grid lee-view-widget--desktop-size">
+    <ul class="lee-bookshow-widget__details-book">
+        <li><small>{{ labelList.isbn }}: {{ book.isbn }}</small></li>
+        <li><strong>{{ labelList.description }}</strong> : {{ book.description }}</li>
+    </ul>
+</main>
+{% endblock %}
+
+{% block footer-scripts %}
+<script src="{{ common.widgetScript['global-config'] }}"></script>
+<script src="{{ common.widgetScript['socketIo'] }}"></script>
+<script src="{{ common.widgetScript['book-show'] }}"></script>
 {% endblock %}

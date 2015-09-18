@@ -1,11 +1,10 @@
-/*Keys and values for share between layers*/
+    /*Keys and values for share between layers*/
 var desktop = {
-    baseStyle: 'css/common.css',
+    baseStyle: '/css/common.css',
     navigation: {
-        cms: {
-            maintitle: 'Leemelo',
-            linkmylibrary: 'Mi libreria',
-            linkCreateBook: 'Añadir'
+        link: {
+            mylibrary: 'Mi libreria',
+            createBook: 'Añadir'
         }
     }
 };

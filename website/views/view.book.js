@@ -22,7 +22,7 @@
     };
 
     BookView.prototype.renderGetBook = function (res, dataCtrl) {
-        var templateKeys = require('./../cms/book-show')(dataCtrl.book),
+        var templateKeys = require('./../cms/book-show'),
             templateData = _.extend(dataCtrl, this.desktopKeys, templateKeys);
 
         res.render('widgets/book-show', templateData);
