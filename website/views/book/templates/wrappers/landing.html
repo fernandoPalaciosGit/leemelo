@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+<head>
+    {% include './../components/meta-head.html' %}
+    {% block header-styles %} {% endblock %}
+    {% block header-scripts %} {% endblock %}
+</head>
+<body>
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    {% include './../components/header-no-nav.html' %}
+    {% include './../components/header-nav-drawer.html' %}
+
+    <main class="mdl-layout__content">
+        {% block title %} {% endblock %}
+        {% block action-button %} {% endblock %}
+    </main>
+
+    {% include './../components/footer.html' %}
+</div>
+{% block footer-scripts %} {% endblock %}
+</body>
+</html>

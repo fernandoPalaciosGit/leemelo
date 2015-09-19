@@ -1,19 +1,47 @@
-{% extends './../base.html' %}
+{% extends './../wrappers/page.html' %}
+{% set cssPath = preference.path.css; %}
+{% set jsPath = preference.path.js; %}
 
-{% block wrapper-tmpl %}
-<form action="/save-book" method="post">
-    <p>
-        <label for="isbn">ISBN: </label>
-        <input id="isbn" type="text" name="isbn" required>
-    </p>
-    <p>
-        <label for="title">Title: </label>
-        <input id="title" type="text" name="title" required>
-    </p>
-    <p>
-        <label for="description">Description: </label>
-        <input id="description" type="text" name="description">
-    </p>    
-    <p><input type="submit" value="submit"></p>
+{% block header-styles %}
+<link rel="stylesheet" href="{{ cssPath['material-design-lite'] }}"/>
+<link rel="stylesheet" href="{{ desktop.baseStyle }}"/>
+<link rel="stylesheet" href="{{ common.widgetStyle }}"/>
+{% endblock %}
+
+{% block header-scripts %}
+<script src="{{ jsPath['material-design-lite'] }}"></script>
+{% endblock %}
+
+{% block title %}
+<div class="lee-view-widget__main-title">
+    <h1 class="mdl-color-text--black">{{ bookadd.cms.mainpagetitle }}</h1>
+</div>
+{% endblock %}
+
+{% block main-section %}
+<form action="{{ serverPath }}/save-book" method="post">
+    <main class="mdl-grid lee-view-widget--desktop-size">
+        <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" id="isbn" type="text" name="isbn" required>
+            <label class="mdl-textfield__label" for="isbn">{{ bookadd.cms.formadd.isbn }}</label>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" id="title" type="text" name="title" required>
+            <label class="mdl-textfield__label" for="title">{{ bookadd.cms.formadd.title }}</label>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" rows="8" id="description" name="description"></textarea>
+            <label class="mdl-textfield__label" for="description">{{ bookadd.cms.formadd.descrtiption }}</label>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col ">
+            <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                   type="submit" value="{{ bookadd.cms.formadd.submit }}">
+        </div>
+    </main>
 </form>
 {% endblock %}
+
+{% block footer-scripts %} {% endblock %}

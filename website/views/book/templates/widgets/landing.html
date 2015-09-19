@@ -1,5 +1,32 @@
-{% extends './../base.html' %}
+{% extends './../wrappers/landing.html' %}
+{% set cssPath = preference.path.css; %}
+{% set jsPath = preference.path.js; %}
 
-{% block wrapper-tmpl %}
-LANDING AND LOGIN
+{% block header-styles %}
+<link rel="stylesheet" href="{{ cssPath['material-design-lite'] }}"/>
+<link rel="stylesheet" href="{{ cssPath['googleapis-material-icons'] }}"/>
+<link rel="stylesheet" href="{{ desktop.baseStyle }}"/>
+<link rel="stylesheet" href="{{ common.widgetStyle }}"/>
 {% endblock %}
+
+{% block header-scripts %}
+<script src="{{ jsPath['material-design-lite'] }}"></script>
+{% endblock %}
+
+{% block title %}
+<div class="lee-view-widget__main-title">
+    <h1 class="mdl-color-text--white">{{ landing.cms.mainpagetitle }}</h1>
+</div>
+{% endblock %}
+
+{% block action-button %}
+<div class="lee-landing__action-access">
+    <a href="{{ preference.serverPath }}/list-all-books">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            {{ landing.cms.actionaccess }}
+        </button>
+    </a>
+</div>
+{% endblock %}
+
+{% block footer-scripts %} {% endblock %}

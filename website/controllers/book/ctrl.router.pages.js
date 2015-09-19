@@ -72,12 +72,11 @@
                     return this.model.getBookById(doc.id);
                 }, this))
                 .then(_.bind(function (doc) {
-                    // redirect to isbn stored book, or to form for add new one.
                     this.redirectPaths(res, 'isbn-book', doc.toJSON().isbn);
                 }, this))
                 .catch(_.bind(function (err) {
                     console.dir(err);
-                    this.redirectPaths(res, 'create-book');
+                    this.redirectPaths(res, 'list-all-books');
                 }, this));
         }
     };
@@ -93,7 +92,7 @@
                 }, this))
                 .catch(_.bind(function (err) {
                     console.dir(err);
-                    this.redirectPaths(res, 'create-book');
+                    this.redirectPaths(res, 'list-all-books');
                 }, this));
         }
     };
@@ -120,7 +119,7 @@
                 }, this))
                 .catch(_.bind(function (err) {
                     console.dir(err);
-                    this.redirectPaths(res, 'create-book');
+                    this.redirectPaths(res, 'landing');
                 }, this));
         }
     };

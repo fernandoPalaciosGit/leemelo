@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+    {% include './../components/meta-head.html' %}
+    {% block header-styles %} {% endblock %}
+    {% block header-scripts %} {% endblock %}
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    {% include './../components/header-nav-fixed.html' %}
+
+    <main class="mdl-layout__content">
+        {% block title %} {% endblock %}
+        {% block main-section %} {% endblock %}
+    </main>
+
+    {% include './../components/footer.html' %}
+</div>
+{% block footer-scripts %} {% endblock %}
+</body>
+</html>
