@@ -1,5 +1,5 @@
 ## :blue_book: LEEMELO :green_book:
-Web app aplication to store and read Books
+scaffolding express aplication
 
 
 
